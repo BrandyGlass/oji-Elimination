@@ -1,1 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>重賞消去法ラボ | 大阪杯 2026</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#121a2b;
+      --panel2:#182338;
+      --line:#2a3754;
+      --text:#e8eefc;
+      --muted:#9fb0d1;
+      --accent:#67e8f9;
+      --accent2:#60a5fa;
+      --danger:#f87171;
+      --ok:#4ade80;
+      --warn:#fbbf24;
+      --shadow:0 10px 30px rgba(0,0,0,.28);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;background:linear-gradient(180deg,#08101d 0%, #0b1220 100%);
+      color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;
+    }
+    body{padding:16px}
+    .wrap{max-width:1200px;margin:0 auto}
+    .hero{
+      background:linear-gradient(135deg, rgba(96,165,250,.18), rgba(103,232,249,.08));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px;
+    }
+    h1{font-size:28px;line-height:1.2;margin:0 0 8px}
+    .sub{color:var(--muted);font-size:14px;line-height:1.6}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      padding:8px 12px;border-radius:999px;font-size:13px;color:var(--text)
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:16px;
+    }
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+    }
+    .card{
+      background:rgba(18,26,43,.92);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .card h2{
+      font-size:18px;margin:0;padding:16px 16px 0 16px;
+    }
+    .card .body{padding:16px}
+    .rule{
+      background:var(--panel2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .rule:last-child{margin-bottom:0}
+    .rule-top{
+      display:flex;gap:10px;align-items:flex-start;justify-content:space-between;
+    }
+    .rule-title{
+      font-size:15px;font-weight:700;line-height:1.4;margin:0 0 6px;
+    }
+    .rule-desc{
+      color:var(--muted);font-size:13px;line-height:1.5;margin:0;
+    }
+    .switch{
+      appearance:none;
+      width:52px;height:30px;border-radius:999px;
+      background:#334155;position:relative;cursor:pointer;border:1px solid #475569;flex:0 0 auto;
+      outline:none;
+    }
+    .switch:checked{background:linear-gradient(90deg,var(--accent2),var(--accent))}
+    .switch::after{
+      content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
+      background:white;transition:.2s ease;
+    }
+    .switch:checked::after{left:25px}
+    .stats{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;
+    }
+    @media (max-width:700px){
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+    .stat{
+      background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px;
+    }
+    .stat .label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .stat .value{font-size:28px;font-weight:800;letter-spacing:.02em}
+    .section-title{font-size:16px;font-weight:800;margin:0 0 10px}
+    .list{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+    }
+    @media (max-width:850px){.list{grid-template-columns:1fr}}
+    .horse{
+      background:var(--panel2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+    }
+    .horse-top{
+      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px;
+    }
+    .horse-name{font-size:17px;font-weight:800}
+    .pill{
+      display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;border:1px solid var(--line)
+    }
+    .pill.ok{background:rgba(74,222,128,.12);color:#b7f7c7;border-color:rgba(74,222,128,.24)}
+    .pill.out{background:rgba(248,113,113,.12);color:#fecaca;border-color:rgba(248,113,113,.24)}
+    .meta{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:10px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px}
+    .tag{
+      font-size:12px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line)
+    }
+    .tag.hit{border-color:rgba(248,113,113,.38);color:#fecaca;background:rgba(248,113,113,.1)}
+    .tag.keep{border-color:rgba(74,222,128,.32);color:#bbf7d0;background:rgba(74,222,128,.08)}
+    textarea{
+      width:100%;min-height:280px;background:#0b1324;color:var(--text);
+      border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13px;line-height:1.5;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    }
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    button{
+      appearance:none;border:none;cursor:pointer;padding:12px 16px;border-radius:12px;font-weight:800;
+      color:#06111f;background:linear-gradient(90deg,var(--accent2),var(--accent));
+    }
+    button.secondary{
+      background:#1e293b;color:var(--text);border:1px solid var(--line);
+    }
+    .note{
+      color:var(--muted);font-size:13px;line-height:1.6;margin-top:10px
+    }
+    .table-wrap{
+      overflow:auto;border:1px solid var(--line);border-radius:14px
+    }
+    table{width:100%;border-collapse:collapse;background:var(--panel2)}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
+    th{background:#111b2f;color:#cfe0ff;position:sticky;top:0}
+    tr:last-child td{border-bottom:none}
+    .footer{
+      color:var(--muted);font-size:12px;line-height:1.6;margin-top:16px
+    }
+    .mini{
+      color:var(--muted);font-size:12px
+    }
+    .result-box{
+      margin-top:16px;padding:14px;border-radius:14px;border:1px solid var(--line);background:#101a2c;
+      font-size:15px;line-height:1.7
+    }
+    .result-box strong{font-size:17px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>重賞消去法ラボ｜大阪杯 2026 サンプル</h1>
+    <div class="sub">
+      過去傾向の条件を、今年の出走馬データに当てはめて絞り込むための1ページ版です。<br>
+      これは公開用サンプルなので、各馬の判定値は見本です。本番ではあなたの消去法データに差し替えて使います。
+    </div>
+    <div class="badges">
+      <span class="badge">阪神 芝2000m</span>
+      <span class="badge">2026/4/5</span>
+      <span class="badge">想定 16頭</span>
+      <span class="badge">GitHub Pages対応</span>
+    </div>
+  </section>
 
+  <section class="grid">
+    <div class="card">
+      <h2>消去条件</h2>
+      <div class="body" id="rulesBox"></div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:16px;">
+        <h2>絞り込み結果</h2>
+        <div class="body">
+          <div class="stats">
+            <div class="stat">
+              <div class="label">出走馬</div>
+              <div class="value" id="totalCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">残り</div>
+              <div class="value" id="survivorCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">消し</div>
+              <div class="value" id="outCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">有効条件数</div>
+              <div class="value" id="activeRuleCount">0</div>
+            </div>
+          </div>
+
+          <div class="result-box" id="summaryText"></div>
+
+          <h3 class="section-title" style="margin-top:18px;">残った馬</h3>
+          <div class="list" id="survivors"></div>
+
+          <h3 class="section-title" style="margin-top:18px;">消えた馬</h3>
+          <div class="list" id="outs"></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h2>出走馬データ（編集可）</h2>
+        <div class="body">
+          <textarea id="jsonInput"></textarea>
+          <div class="btns">
+            <button id="recalcBtn">再計算する</button>
+            <button class="secondary" id="resetBtn">初期データに戻す</button>
+          </div>
+          <div class="note">
+            ここにあるJSONを書き換えて「再計算する」を押すと、判定結果が更新されます。<br>
+            `true` は該当、`false` は非該当です。
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>判定一覧表</h2>
+        <div class="body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>馬名</th>
+                  <th>年齢</th>
+                  <th>前走</th>
+                  <th>前走G2以上</th>
+                  <th>近3走G2以上連対</th>
+                  <th>中距離重賞大敗</th>
+                  <th>阪神2000向き先行力</th>
+                  <th>4-5歳</th>
+                  <th>上がり頼み過ぎ</th>
+                  <th>結果</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+          <div class="footer">
+            注意: このページは「見本」です。投資判断ではなく、過去傾向の当てはめを見せる用途を想定しています。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const STORAGE_KEY = "oji_elimination_osakahai_2026_v1";
+
+  const defaultRules = [
+    {
+      id: "no_recent_top2_g2plus",
+      title: "近3走でG2以上連対なし → 消し",
+      desc: "近3走のどこかでG2以上で連対がない馬を消す想定ルール。",
+      field: "recentTop2G2Plus",
+      eliminateWhen: false,
+      enabled: true
+    },
+    {
+      id: "bad_last_middle_grade",
+      title: "前走が中距離重賞で大敗 → 消し",
+      desc: "前走が中距離重賞で内容が悪かった馬を消す想定ルール。",
+      field: "lastRaceMiddleGradeBad",
+      eliminateWhen: true,
+      enabled: true
+    },
+    {
+      id: "no_hanshin2000_style",
+      title: "阪神芝2000m向きの先行力なし → 消し",
+      desc: "機動力と位置取りの再現性が乏しい馬を消す想定ルール。",
+      field: "hanshin2000Speed",
+      eliminateWhen: false,
+      enabled: true
+    },
+    {
+      id: "not_age_4_5",
+      title: "4歳・5歳以外 → 消し",
+      desc: "年齢傾向を強めに使う見本ルールです。",
+      field: "age45",
+      eliminateWhen: false,
+      enabled: false
+    },
+    {
+      id: "too_much_latekick",
+      title: "上がり頼みの競馬に偏りすぎ → 消し",
+      desc: "展開待ちが強すぎるタイプを消す想定ルール。",
+      field: "tooMuchLateKick",
+      eliminateWhen: true,
+      enabled: false
+    }
+  ];
+
+  const defaultData = {
+    race: "大阪杯 2026",
+    course: "阪神芝2000m",
+    date: "2026-04-05",
+    horses: [
+      { name:"ダノンデサイル", age:5, lastRace:"ジャパンC", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
+      { name:"クロワデュノール", age:4, lastRace:"有馬記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
+      { name:"メイショウタバル", age:5, lastRace:"金鯱賞", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
+      { name:"セイウンハーデス", age:7, lastRace:"京都記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
+      { name:"ヨーホーレイク", age:8, lastRace:"京都記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
+      { name:"ベラジオオペラ", age:6, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
+      { name:"ジャスティンパレス", age:7, lastRace:"有馬記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
+      { name:"ソールオリエンス", age:6, lastRace:"中山記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
+      { name:"シックスペンス", age:5, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
+      { name:"ステレンボッシュ", age:5, lastRace:"香港ヴァーズ", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:true, tooMuchLateKick:false },
+      { name:"エコロヴァルツ", age:5, lastRace:"金鯱賞", recentTop2G2Plus:false, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
+      { name:"ロードデルレイ", age:6, lastRace:"日経新春杯", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
+      { name:"ラヴェル", age:6, lastRace:"金鯱賞", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
+      { name:"ホウオウビスケッツ", age:6, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
+      { name:"アルナシーム", age:7, lastRace:"中山記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
+      { name:"カラテ", age:10, lastRace:"京都記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true }
+    ]
+  };
+
+  const el = {
+    rulesBox: document.getElementById("rulesBox"),
+    totalCount: document.getElementById("totalCount"),
+    survivorCount: document.getElementById("survivorCount"),
+    outCount: document.getElementById("outCount"),
+    activeRuleCount: document.getElementById("activeRuleCount"),
+    survivors: document.getElementById("survivors"),
+    outs: document.getElementById("outs"),
+    summaryText: document.getElementById("summaryText"),
+    tableBody: document.getElementById("tableBody"),
+    jsonInput: document.getElementById("jsonInput"),
+    recalcBtn: document.getElementById("recalcBtn"),
+    resetBtn: document.getElementById("resetBtn")
+  };
+
+  let state = loadState();
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return { rules: defaultRules, data: defaultData };
+      const parsed = JSON.parse(raw);
+      if(!parsed.rules || !parsed.data) throw new Error("invalid");
+      return parsed;
+    }catch(e){
+      return { rules: structuredClone(defaultRules), data: structuredClone(defaultData) };
+    }
+  }
+
+  function saveState(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function renderRules(){
+    el.rulesBox.innerHTML = "";
+    state.rules.forEach((rule, idx) => {
+      const wrap = document.createElement("div");
+      wrap.className = "rule";
+      wrap.innerHTML = `
+        <div class="rule-top">
+          <div>
+            <div class="rule-title">${escapeHtml(rule.title)}</div>
+            <p class="rule-desc">${escapeHtml(rule.desc)}</p>
+          </div>
+          <input class="switch" type="checkbox" ${rule.enabled ? "checked" : ""} data-rule-index="${idx}" aria-label="${escapeHtml(rule.title)}">
+        </div>
+      `;
+      el.rulesBox.appendChild(wrap);
+    });
+  }
+
+  function applyRules(data, rules){
+    return data.horses.map(horse => {
+      const hitRules = [];
+      rules.forEach(rule => {
+        if(!rule.enabled) return;
+        const value = horse[rule.field];
+        if(value === rule.eliminateWhen){
+          hitRules.push(rule.title);
+        }
+      });
+      return {
+        ...horse,
+        eliminated: hitRules.length > 0,
+        reasons: hitRules
+      };
+    });
+  }
+
+  function render(){
+    renderRules();
+    el.jsonInput.value = JSON.stringify(state.data, null, 2);
+
+    const results = applyRules(state.data, state.rules);
+    const survivors = results.filter(x => !x.eliminated);
+    const outs = results.filter(x => x.eliminated);
+    const activeRules = state.rules.filter(r => r.enabled).length;
+
+    el.totalCount.textContent = results.length;
+    el.survivorCount.textContent = survivors.length;
+    el.outCount.textContent = outs.length;
+    el.activeRuleCount.textContent = activeRules;
+
+    if(survivors.length === 0){
+      el.summaryText.innerHTML = `<strong>残り0頭</strong><br>条件が厳しすぎる状態です。条件を1つ外すか、各馬データを見直してください。`;
+    }else if(survivors.length <= 3){
+      el.summaryText.innerHTML = `<strong>最終候補ゾーン</strong><br>残りは ${survivors.length} 頭です。公開サイトなら、この状態を「最終候補」として見せやすいです。`;
+    }else{
+      el.summaryText.innerHTML = `<strong>まだ候補が多い状態</strong><br>残りは ${survivors.length} 頭です。もう1〜2条件追加するか、条件の精度を上げる余地があります。`;
+    }
+
+    renderHorseList(el.survivors, survivors, true);
+    renderHorseList(el.outs, outs, false);
+    renderTable(results);
+    bindRuleToggles();
+    saveState();
+  }
+
+  function renderHorseList(target, list, alive){
+    target.innerHTML = "";
+    if(list.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "horse";
+      empty.innerHTML = `<div class="mini">${alive ? "残った馬はいません。" : "消えた馬はいません。"}</div>`;
+      target.appendChild(empty);
+      return;
+    }
+
+    list.forEach(horse => {
+      const div = document.createElement("div");
+      div.className = "horse";
+      div.innerHTML = `
+        <div class="horse-top">
+          <div class="horse-name">${escapeHtml(horse.name)}</div>
+          <span class="pill ${alive ? "ok" : "out"}">${alive ? "残り" : "消し"}</span>
+        </div>
+        <div class="meta">
+          ${horse.age}歳 / 前走: ${escapeHtml(horse.lastRace || "—")}
+        </div>
+        <div class="tags">
+          ${
+            alive
+              ? `<span class="tag keep">現時点で消去条件なし</span>`
+              : horse.reasons.map(r => `<span class="tag hit">${escapeHtml(r)}</span>`).join("")
+          }
+        </div>
+      `;
+      target.appendChild(div);
+    });
+  }
+
+  function renderTable(results){
+    el.tableBody.innerHTML = results.map(h => `
+      <tr>
+        <td>${escapeHtml(h.name)}</td>
+        <td>${escapeHtml(String(h.age))}</td>
+        <td>${escapeHtml(h.lastRace || "—")}</td>
+        <td>${boolText(h.recentTop2G2Plus)}</td>
+        <td>${boolText(h.recentTop2G2Plus)}</td>
+        <td>${boolText(h.lastRaceMiddleGradeBad)}</td>
+        <td>${boolText(h.hanshin2000Speed)}</td>
+        <td>${boolText(h.age45)}</td>
+        <td>${boolText(h.tooMuchLateKick)}</td>
+        <td>${h.eliminated ? "消し" : "残り"}</td>
+      </tr>
+    `).join("");
+  }
+
+  function boolText(v){
+    return v ? "○" : "×";
+  }
+
+  function bindRuleToggles(){
+    document.querySelectorAll("[data-rule-index]").forEach(input => {
+      input.addEventListener("change", e => {
+        const idx = Number(e.currentTarget.getAttribute("data-rule-index"));
+        state.rules[idx].enabled = e.currentTarget.checked;
+        render();
+      });
+    });
+  }
+
+  function parseJsonFromTextarea(){
+    try{
+      const next = JSON.parse(el.jsonInput.value);
+      if(!next || !Array.isArray(next.horses)) throw new Error("horses array required");
+      state.data = next;
+      render();
+    }catch(err){
+      alert("JSONの形式が正しくありません。カンマやカッコを確認してください。");
+    }
+  }
+
+  function resetAll(){
+    state = {
+      rules: structuredClone(defaultRules),
+      data: structuredClone(defaultData)
+    };
+    render();
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#39;");
+  }
+
+  el.recalcBtn.addEventListener("click", parseJsonFromTextarea);
+  el.resetBtn.addEventListener("click", resetAll);
+
+  render();
+})();
+</script>
+</body>
+</html>
