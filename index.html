@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>重賞消去法ラボ | 大阪杯 2026</title>
+  <title>重賞消去法ラボ | 大阪杯 2026 確定版</title>
   <style>
     :root{
       --bg:#0b1220;
@@ -23,7 +23,8 @@
     *{box-sizing:border-box}
     html,body{
       margin:0;padding:0;background:linear-gradient(180deg,#08101d 0%, #0b1220 100%);
-      color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;
     }
     body{padding:16px}
     .wrap{max-width:1200px;margin:0 auto}
@@ -70,27 +71,12 @@
       margin-bottom:12px;
     }
     .rule:last-child{margin-bottom:0}
-    .rule-top{
-      display:flex;gap:10px;align-items:flex-start;justify-content:space-between;
-    }
     .rule-title{
       font-size:15px;font-weight:700;line-height:1.4;margin:0 0 6px;
     }
     .rule-desc{
       color:var(--muted);font-size:13px;line-height:1.5;margin:0;
     }
-    .switch{
-      appearance:none;
-      width:52px;height:30px;border-radius:999px;
-      background:#334155;position:relative;cursor:pointer;border:1px solid #475569;flex:0 0 auto;
-      outline:none;
-    }
-    .switch:checked{background:linear-gradient(90deg,var(--accent2),var(--accent))}
-    .switch::after{
-      content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
-      background:white;transition:.2s ease;
-    }
-    .switch:checked::after{left:25px}
     .stats{
       display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;
     }
@@ -129,24 +115,26 @@
     }
     .tag.hit{border-color:rgba(248,113,113,.38);color:#fecaca;background:rgba(248,113,113,.1)}
     .tag.keep{border-color:rgba(74,222,128,.32);color:#bbf7d0;background:rgba(74,222,128,.08)}
-    textarea{
-      width:100%;min-height:280px;background:#0b1324;color:var(--text);
-      border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13px;line-height:1.5;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+    .result-box{
+      margin-top:16px;padding:14px;border-radius:14px;border:1px solid var(--line);background:#101a2c;
+      font-size:15px;line-height:1.7
     }
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-    button{
-      appearance:none;border:none;cursor:pointer;padding:12px 16px;border-radius:12px;font-weight:800;
-      color:#06111f;background:linear-gradient(90deg,var(--accent2),var(--accent));
+    .result-box strong{font-size:17px}
+    details{
+      margin-top:18px;
+      background:#101a2c;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
     }
-    button.secondary{
-      background:#1e293b;color:var(--text);border:1px solid var(--line);
-    }
-    .note{
-      color:var(--muted);font-size:13px;line-height:1.6;margin-top:10px
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      color:var(--text);
+      outline:none;
     }
     .table-wrap{
-      overflow:auto;border:1px solid var(--line);border-radius:14px
+      overflow:auto;border:1px solid var(--line);border-radius:14px;margin-top:12px
     }
     table{width:100%;border-collapse:collapse;background:var(--panel2)}
     th,td{padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;vertical-align:top}
@@ -158,33 +146,45 @@
     .mini{
       color:var(--muted);font-size:12px
     }
-    .result-box{
-      margin-top:16px;padding:14px;border-radius:14px;border:1px solid var(--line);background:#101a2c;
-      font-size:15px;line-height:1.7
-    }
-    .result-box strong{font-size:17px}
   </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1>重賞消去法ラボ｜大阪杯 2026 サンプル</h1>
+    <h1>重賞消去法ラボ｜大阪杯 2026 確定版</h1>
     <div class="sub">
-      過去傾向の条件を、今年の出走馬データに当てはめて絞り込むための1ページ版です。<br>
-      これは公開用サンプルなので、各馬の判定値は見本です。本番ではあなたの消去法データに差し替えて使います。
+      強めの消し条件だけで機械的に削る版です。<br>
+      4条件のうち1つでも当てはまれば消し。残った馬だけを前面に表示します。
     </div>
     <div class="badges">
       <span class="badge">阪神 芝2000m</span>
       <span class="badge">2026/4/5</span>
-      <span class="badge">想定 16頭</span>
-      <span class="badge">GitHub Pages対応</span>
+      <span class="badge">登録 16頭</span>
+      <span class="badge">1つでも該当で消し</span>
     </div>
   </section>
 
   <section class="grid">
     <div class="card">
-      <h2>消去条件</h2>
-      <div class="body" id="rulesBox"></div>
+      <h2>強めの消し条件</h2>
+      <div class="body">
+        <div class="rule">
+          <div class="rule-title">1. 6歳以上</div>
+          <p class="rule-desc">年齢面でかなり不利。6歳以上は機械的に消し候補。</p>
+        </div>
+        <div class="rule">
+          <div class="rule-title">2. 前走二桁着順</div>
+          <p class="rule-desc">前走で大敗している馬は巻き返しづらいと見て消し。</p>
+        </div>
+        <div class="rule">
+          <div class="rule-title">3. 前走G3以下</div>
+          <p class="rule-desc">前走格が足りない馬は基本的に消し。</p>
+        </div>
+        <div class="rule">
+          <div class="rule-title">4. 2000m以上G1で3着以内なし</div>
+          <p class="rule-desc">中距離G1の裏付けがない馬は消し。</p>
+        </div>
+      </div>
     </div>
 
     <div>
@@ -193,7 +193,7 @@
         <div class="body">
           <div class="stats">
             <div class="stat">
-              <div class="label">出走馬</div>
+              <div class="label">登録頭数</div>
               <div class="value" id="totalCount">0</div>
             </div>
             <div class="stat">
@@ -205,8 +205,8 @@
               <div class="value" id="outCount">0</div>
             </div>
             <div class="stat">
-              <div class="label">有効条件数</div>
-              <div class="value" id="activeRuleCount">0</div>
+              <div class="label">条件数</div>
+              <div class="value">4</div>
             </div>
           </div>
 
@@ -215,28 +215,15 @@
           <h3 class="section-title" style="margin-top:18px;">残った馬</h3>
           <div class="list" id="survivors"></div>
 
-          <h3 class="section-title" style="margin-top:18px;">消えた馬</h3>
-          <div class="list" id="outs"></div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom:16px;">
-        <h2>出走馬データ（編集可）</h2>
-        <div class="body">
-          <textarea id="jsonInput"></textarea>
-          <div class="btns">
-            <button id="recalcBtn">再計算する</button>
-            <button class="secondary" id="resetBtn">初期データに戻す</button>
-          </div>
-          <div class="note">
-            ここにあるJSONを書き換えて「再計算する」を押すと、判定結果が更新されます。<br>
-            `true` は該当、`false` は非該当です。
-          </div>
+          <details>
+            <summary>消えた馬を見る</summary>
+            <div class="list" id="outs" style="margin-top:12px;"></div>
+          </details>
         </div>
       </div>
 
       <div class="card">
-        <h2>判定一覧表</h2>
+        <h2>判定一覧</h2>
         <div class="body">
           <div class="table-wrap">
             <table>
@@ -245,12 +232,9 @@
                   <th>馬名</th>
                   <th>年齢</th>
                   <th>前走</th>
-                  <th>前走G2以上</th>
-                  <th>近3走G2以上連対</th>
-                  <th>中距離重賞大敗</th>
-                  <th>阪神2000向き先行力</th>
-                  <th>4-5歳</th>
-                  <th>上がり頼み過ぎ</th>
+                  <th>前走着順</th>
+                  <th>前走格</th>
+                  <th>2000m以上G1 3着内</th>
                   <th>結果</th>
                 </tr>
               </thead>
@@ -258,7 +242,7 @@
             </table>
           </div>
           <div class="footer">
-            注意: このページは「見本」です。投資判断ではなく、過去傾向の当てはめを見せる用途を想定しています。
+            注意: このページは、強い消し条件だけで候補を削るためのものです。最終判断は各自で行ってください。
           </div>
         </div>
       </div>
@@ -268,171 +252,166 @@
 
 <script>
 (() => {
-  const STORAGE_KEY = "oji_elimination_osakahai_2026_v1";
-
-  const defaultRules = [
-    {
-      id: "no_recent_top2_g2plus",
-      title: "近3走でG2以上連対なし → 消し",
-      desc: "近3走のどこかでG2以上で連対がない馬を消す想定ルール。",
-      field: "recentTop2G2Plus",
-      eliminateWhen: false,
-      enabled: true
-    },
-    {
-      id: "bad_last_middle_grade",
-      title: "前走が中距離重賞で大敗 → 消し",
-      desc: "前走が中距離重賞で内容が悪かった馬を消す想定ルール。",
-      field: "lastRaceMiddleGradeBad",
-      eliminateWhen: true,
-      enabled: true
-    },
-    {
-      id: "no_hanshin2000_style",
-      title: "阪神芝2000m向きの先行力なし → 消し",
-      desc: "機動力と位置取りの再現性が乏しい馬を消す想定ルール。",
-      field: "hanshin2000Speed",
-      eliminateWhen: false,
-      enabled: true
-    },
-    {
-      id: "not_age_4_5",
-      title: "4歳・5歳以外 → 消し",
-      desc: "年齢傾向を強めに使う見本ルールです。",
-      field: "age45",
-      eliminateWhen: false,
-      enabled: false
-    },
-    {
-      id: "too_much_latekick",
-      title: "上がり頼みの競馬に偏りすぎ → 消し",
-      desc: "展開待ちが強すぎるタイプを消す想定ルール。",
-      field: "tooMuchLateKick",
-      eliminateWhen: true,
-      enabled: false
-    }
-  ];
-
-  const defaultData = {
+  const data = {
     race: "大阪杯 2026",
     course: "阪神芝2000m",
     date: "2026-04-05",
+    assumption: {
+      g1_2000plus_place_definition: "2000m以上のG1で3着以内"
+    },
     horses: [
-      { name:"ダノンデサイル", age:5, lastRace:"ジャパンC", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
-      { name:"クロワデュノール", age:4, lastRace:"有馬記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
-      { name:"メイショウタバル", age:5, lastRace:"金鯱賞", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
-      { name:"セイウンハーデス", age:7, lastRace:"京都記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
-      { name:"ヨーホーレイク", age:8, lastRace:"京都記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
-      { name:"ベラジオオペラ", age:6, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
-      { name:"ジャスティンパレス", age:7, lastRace:"有馬記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
-      { name:"ソールオリエンス", age:6, lastRace:"中山記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
-      { name:"シックスペンス", age:5, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
-      { name:"ステレンボッシュ", age:5, lastRace:"香港ヴァーズ", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:false, age45:true, tooMuchLateKick:false },
-      { name:"エコロヴァルツ", age:5, lastRace:"金鯱賞", recentTop2G2Plus:false, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:true, tooMuchLateKick:false },
-      { name:"ロードデルレイ", age:6, lastRace:"日経新春杯", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
-      { name:"ラヴェル", age:6, lastRace:"金鯱賞", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
-      { name:"ホウオウビスケッツ", age:6, lastRace:"中山記念", recentTop2G2Plus:true, lastRaceMiddleGradeBad:false, hanshin2000Speed:true, age45:false, tooMuchLateKick:false },
-      { name:"アルナシーム", age:7, lastRace:"中山記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true },
-      { name:"カラテ", age:10, lastRace:"京都記念", recentTop2G2Plus:false, lastRaceMiddleGradeBad:true, hanshin2000Speed:false, age45:false, tooMuchLateKick:true }
+      {
+        name: "エコロディノス",
+        age: 4,
+        lastRace: "京都記念",
+        lastFinish: 3,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "エコロヴァルツ",
+        age: 5,
+        lastRace: "中山記念",
+        lastFinish: 3,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "オニャンコポン",
+        age: 7,
+        lastRace: "中山記念",
+        lastFinish: 11,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "クロワデュノール",
+        age: 4,
+        lastRace: "ジャパンC",
+        lastFinish: 4,
+        lastGrade: "G1",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "サンストックトン",
+        age: 7,
+        lastRace: "中山記念",
+        lastFinish: 9,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "ショウヘイ",
+        age: 4,
+        lastRace: "AJCC",
+        lastFinish: 1,
+        lastGrade: "G2",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "セイウンハーデス",
+        age: 7,
+        lastRace: "中山記念",
+        lastFinish: 12,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "タガノデュード",
+        age: 5,
+        lastRace: "小倉大賞典",
+        lastFinish: 1,
+        lastGrade: "G3",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "ダノンデサイル",
+        age: 5,
+        lastRace: "有馬記念",
+        lastFinish: 3,
+        lastGrade: "G1",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "デビットバローズ",
+        age: 7,
+        lastRace: "鳴尾記念",
+        lastFinish: 1,
+        lastGrade: "G3",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "ファウストラーゼン",
+        age: 4,
+        lastRace: "AJCC",
+        lastFinish: 12,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "ボルドグフーシュ",
+        age: 7,
+        lastRace: "アルゼンチン共和国杯",
+        lastFinish: 11,
+        lastGrade: "G2",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "マテンロウレオ",
+        age: 7,
+        lastRace: "AJCC",
+        lastFinish: 4,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      },
+      {
+        name: "メイショウタバル",
+        age: 5,
+        lastRace: "有馬記念",
+        lastFinish: 13,
+        lastGrade: "G1",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "ヨーホーレイク",
+        age: 8,
+        lastRace: "京都記念",
+        lastFinish: 7,
+        lastGrade: "G2",
+        hasG12000PlusPlace: true
+      },
+      {
+        name: "レーベンスティール",
+        age: 6,
+        lastRace: "中山記念",
+        lastFinish: 1,
+        lastGrade: "G2",
+        hasG12000PlusPlace: false
+      }
     ]
   };
 
   const el = {
-    rulesBox: document.getElementById("rulesBox"),
     totalCount: document.getElementById("totalCount"),
     survivorCount: document.getElementById("survivorCount"),
     outCount: document.getElementById("outCount"),
-    activeRuleCount: document.getElementById("activeRuleCount"),
     survivors: document.getElementById("survivors"),
     outs: document.getElementById("outs"),
     summaryText: document.getElementById("summaryText"),
-    tableBody: document.getElementById("tableBody"),
-    jsonInput: document.getElementById("jsonInput"),
-    recalcBtn: document.getElementById("recalcBtn"),
-    resetBtn: document.getElementById("resetBtn")
+    tableBody: document.getElementById("tableBody")
   };
 
-  let state = loadState();
-
-  function loadState(){
-    try{
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return { rules: defaultRules, data: defaultData };
-      const parsed = JSON.parse(raw);
-      if(!parsed.rules || !parsed.data) throw new Error("invalid");
-      return parsed;
-    }catch(e){
-      return { rules: structuredClone(defaultRules), data: structuredClone(defaultData) };
-    }
-  }
-
-  function saveState(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  function renderRules(){
-    el.rulesBox.innerHTML = "";
-    state.rules.forEach((rule, idx) => {
-      const wrap = document.createElement("div");
-      wrap.className = "rule";
-      wrap.innerHTML = `
-        <div class="rule-top">
-          <div>
-            <div class="rule-title">${escapeHtml(rule.title)}</div>
-            <p class="rule-desc">${escapeHtml(rule.desc)}</p>
-          </div>
-          <input class="switch" type="checkbox" ${rule.enabled ? "checked" : ""} data-rule-index="${idx}" aria-label="${escapeHtml(rule.title)}">
-        </div>
-      `;
-      el.rulesBox.appendChild(wrap);
-    });
-  }
-
-  function applyRules(data, rules){
-    return data.horses.map(horse => {
-      const hitRules = [];
-      rules.forEach(rule => {
-        if(!rule.enabled) return;
-        const value = horse[rule.field];
-        if(value === rule.eliminateWhen){
-          hitRules.push(rule.title);
-        }
-      });
-      return {
-        ...horse,
-        eliminated: hitRules.length > 0,
-        reasons: hitRules
-      };
-    });
-  }
-
-  function render(){
-    renderRules();
-    el.jsonInput.value = JSON.stringify(state.data, null, 2);
-
-    const results = applyRules(state.data, state.rules);
-    const survivors = results.filter(x => !x.eliminated);
-    const outs = results.filter(x => x.eliminated);
-    const activeRules = state.rules.filter(r => r.enabled).length;
-
-    el.totalCount.textContent = results.length;
-    el.survivorCount.textContent = survivors.length;
-    el.outCount.textContent = outs.length;
-    el.activeRuleCount.textContent = activeRules;
-
-    if(survivors.length === 0){
-      el.summaryText.innerHTML = `<strong>残り0頭</strong><br>条件が厳しすぎる状態です。条件を1つ外すか、各馬データを見直してください。`;
-    }else if(survivors.length <= 3){
-      el.summaryText.innerHTML = `<strong>最終候補ゾーン</strong><br>残りは ${survivors.length} 頭です。公開サイトなら、この状態を「最終候補」として見せやすいです。`;
-    }else{
-      el.summaryText.innerHTML = `<strong>まだ候補が多い状態</strong><br>残りは ${survivors.length} 頭です。もう1〜2条件追加するか、条件の精度を上げる余地があります。`;
-    }
-
-    renderHorseList(el.survivors, survivors, true);
-    renderHorseList(el.outs, outs, false);
-    renderTable(results);
-    bindRuleToggles();
-    saveState();
+  function judgeHorse(horse){
+    const reasons = [];
+    if(horse.age >= 6) reasons.push("6歳以上");
+    if(horse.lastFinish >= 10) reasons.push("前走二桁着順");
+    if(horse.lastGrade === "G3" || horse.lastGrade === "L" || horse.lastGrade === "OP") reasons.push("前走G3以下");
+    if(!horse.hasG12000PlusPlace) reasons.push("2000m以上G1で3着以内なし");
+    return {
+      ...horse,
+      eliminated: reasons.length > 0,
+      reasons
+    };
   }
 
   function renderHorseList(target, list, alive){
@@ -454,12 +433,12 @@
           <span class="pill ${alive ? "ok" : "out"}">${alive ? "残り" : "消し"}</span>
         </div>
         <div class="meta">
-          ${horse.age}歳 / 前走: ${escapeHtml(horse.lastRace || "—")}
+          ${horse.age}歳 / 前走: ${escapeHtml(horse.lastRace)} ${horse.lastFinish}着 / ${escapeHtml(horse.lastGrade)}
         </div>
         <div class="tags">
           ${
             alive
-              ? `<span class="tag keep">現時点で消去条件なし</span>`
+              ? `<span class="tag keep">4条件すべてクリア</span>`
               : horse.reasons.map(r => `<span class="tag hit">${escapeHtml(r)}</span>`).join("")
           }
         </div>
@@ -472,50 +451,14 @@
     el.tableBody.innerHTML = results.map(h => `
       <tr>
         <td>${escapeHtml(h.name)}</td>
-        <td>${escapeHtml(String(h.age))}</td>
-        <td>${escapeHtml(h.lastRace || "—")}</td>
-        <td>${boolText(h.recentTop2G2Plus)}</td>
-        <td>${boolText(h.recentTop2G2Plus)}</td>
-        <td>${boolText(h.lastRaceMiddleGradeBad)}</td>
-        <td>${boolText(h.hanshin2000Speed)}</td>
-        <td>${boolText(h.age45)}</td>
-        <td>${boolText(h.tooMuchLateKick)}</td>
+        <td>${h.age}</td>
+        <td>${escapeHtml(h.lastRace)}</td>
+        <td>${h.lastFinish}着</td>
+        <td>${escapeHtml(h.lastGrade)}</td>
+        <td>${h.hasG12000PlusPlace ? "あり" : "なし"}</td>
         <td>${h.eliminated ? "消し" : "残り"}</td>
       </tr>
     `).join("");
-  }
-
-  function boolText(v){
-    return v ? "○" : "×";
-  }
-
-  function bindRuleToggles(){
-    document.querySelectorAll("[data-rule-index]").forEach(input => {
-      input.addEventListener("change", e => {
-        const idx = Number(e.currentTarget.getAttribute("data-rule-index"));
-        state.rules[idx].enabled = e.currentTarget.checked;
-        render();
-      });
-    });
-  }
-
-  function parseJsonFromTextarea(){
-    try{
-      const next = JSON.parse(el.jsonInput.value);
-      if(!next || !Array.isArray(next.horses)) throw new Error("horses array required");
-      state.data = next;
-      render();
-    }catch(err){
-      alert("JSONの形式が正しくありません。カンマやカッコを確認してください。");
-    }
-  }
-
-  function resetAll(){
-    state = {
-      rules: structuredClone(defaultRules),
-      data: structuredClone(defaultData)
-    };
-    render();
   }
 
   function escapeHtml(str){
@@ -527,10 +470,27 @@
       .replaceAll("'","&#39;");
   }
 
-  el.recalcBtn.addEventListener("click", parseJsonFromTextarea);
-  el.resetBtn.addEventListener("click", resetAll);
+  function main(){
+    const results = data.horses.map(judgeHorse);
+    const survivors = results.filter(x => !x.eliminated);
+    const outs = results.filter(x => x.eliminated);
 
-  render();
+    el.totalCount.textContent = results.length;
+    el.survivorCount.textContent = survivors.length;
+    el.outCount.textContent = outs.length;
+
+    if(survivors.length === 0){
+      el.summaryText.innerHTML = `<strong>残り0頭</strong><br>条件が厳しすぎる状態です。`;
+    }else{
+      el.summaryText.innerHTML = `<strong>残り ${survivors.length} 頭</strong><br>${survivors.map(h => escapeHtml(h.name)).join(" / ")}`;
+    }
+
+    renderHorseList(el.survivors, survivors, true);
+    renderHorseList(el.outs, outs, false);
+    renderTable(results);
+  }
+
+  main();
 })();
 </script>
 </body>
