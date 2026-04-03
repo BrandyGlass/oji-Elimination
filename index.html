@@ -7,23 +7,19 @@
   <style>
     :root{
       --bg:#0b1220;
-      --bg2:#111a2b;
-      --card:#162033;
-      --card2:#1b2740;
-      --line:#2b3a57;
-      --text:#e8eefc;
+      --bg2:#101a2f;
+      --card:#16213a;
+      --card2:#1b2947;
+      --line:#2d3f63;
+      --text:#edf3ff;
       --muted:#9fb0cf;
-      --accent:#5cc8ff;
+      --accent:#62c9ff;
       --accent2:#7ef0c3;
-      --danger:#ff7b7b;
+      --danger:#ff7f7f;
       --warn:#ffd166;
-      --ok:#7ef0c3;
-      --x:#ff7b7b;
-      --g:#63d38f;
-      --o:#7fb3ff;
-      --d:#ffc857;
-      --m:#93a4c4;
-      --shadow:0 10px 30px rgba(0,0,0,.28);
+      --ok:#79e6b6;
+      --gold:#ffd76a;
+      --shadow:0 12px 28px rgba(0,0,0,.28);
       --radius:18px;
       --tap:48px;
     }
@@ -32,7 +28,7 @@
     html,body{
       margin:0;
       padding:0;
-      background:linear-gradient(180deg,#08101d 0%, #0e1730 100%);
+      background:linear-gradient(180deg,#08111f 0%, #0e1730 100%);
       color:var(--text);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
       line-height:1.5;
@@ -41,16 +37,16 @@
 
     body{
       min-height:100vh;
-      padding:16px 14px 32px;
+      padding:16px 14px 30px;
     }
 
     .app{
-      max-width:860px;
+      max-width:900px;
       margin:0 auto;
     }
 
     .hero{
-      background:linear-gradient(135deg, rgba(92,200,255,.16), rgba(126,240,195,.10));
+      background:linear-gradient(135deg, rgba(98,201,255,.16), rgba(126,240,195,.10));
       border:1px solid rgba(126,240,195,.14);
       border-radius:24px;
       padding:18px 16px;
@@ -73,12 +69,12 @@
     }
 
     .sub{
+      margin:0;
       color:var(--muted);
       font-size:14px;
-      margin:0;
     }
 
-    .race-meta{
+    .meta-grid{
       margin-top:14px;
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
@@ -98,20 +94,21 @@
       font-size:12px;
       margin-bottom:2px;
     }
+
     .mini .v{
       display:block;
       font-size:14px;
-      font-weight:700;
+      font-weight:800;
     }
 
     .nav{
       position:sticky;
       top:0;
-      z-index:30;
+      z-index:20;
       margin:14px 0;
       padding:8px;
       backdrop-filter:blur(12px);
-      background:rgba(9,16,30,.72);
+      background:rgba(8,16,30,.78);
       border:1px solid rgba(255,255,255,.08);
       border-radius:18px;
       display:grid;
@@ -123,45 +120,29 @@
       min-height:var(--tap);
       border:none;
       border-radius:14px;
-      background:#17233a;
+      background:#172640;
       color:var(--text);
       font-size:14px;
-      font-weight:800;
+      font-weight:900;
       padding:12px 10px;
       cursor:pointer;
     }
 
     .tab-btn.active{
-      background:linear-gradient(135deg, rgba(92,200,255,.26), rgba(126,240,195,.22));
-      outline:1px solid rgba(126,240,195,.28);
+      background:linear-gradient(135deg, rgba(98,201,255,.26), rgba(126,240,195,.22));
+      outline:1px solid rgba(126,240,195,.24);
     }
 
-    .screen{
-      display:none;
-      animation:fade .18s ease;
-    }
-
-    .screen.active{
-      display:block;
-    }
-
-    @keyframes fade{
-      from{opacity:.55; transform:translateY(4px);}
-      to{opacity:1; transform:translateY(0);}
-    }
+    .screen{ display:none; }
+    .screen.active{ display:block; }
 
     .section{
-      margin-bottom:16px;
       background:rgba(255,255,255,.02);
       border:1px solid rgba(255,255,255,.07);
       border-radius:22px;
       padding:14px;
       box-shadow:var(--shadow);
-    }
-
-    .section h2{
-      margin:0 0 10px;
-      font-size:20px;
+      margin-bottom:16px;
     }
 
     .section-head{
@@ -172,9 +153,12 @@
       margin-bottom:10px;
     }
 
-    .muted{
-      color:var(--muted);
+    .section h2{
+      margin:0;
+      font-size:20px;
     }
+
+    .muted{ color:var(--muted); }
 
     .rules{
       display:grid;
@@ -186,15 +170,14 @@
       border:1px solid var(--line);
       border-radius:14px;
       padding:10px 12px;
-      color:#dce7ff;
       font-size:14px;
     }
 
     .stats{
+      margin-top:12px;
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:10px;
-      margin-top:10px;
     }
 
     .stat{
@@ -206,10 +189,10 @@
     }
 
     .stat .num{
+      display:block;
       font-size:24px;
       font-weight:900;
-      display:block;
-      line-height:1.1;
+      line-height:1.05;
       margin-bottom:4px;
     }
 
@@ -233,9 +216,7 @@
       margin-bottom:8px;
     }
 
-    .horse-left{
-      min-width:0;
-    }
+    .horse-left{ min-width:0; }
 
     .horse-no{
       display:inline-flex;
@@ -244,8 +225,8 @@
       min-width:34px;
       height:34px;
       border-radius:999px;
-      background:#233250;
-      border:1px solid #3a4d76;
+      background:#223355;
+      border:1px solid #3c4f78;
       font-weight:900;
       margin-right:8px;
       vertical-align:middle;
@@ -263,7 +244,7 @@
       font-size:13px;
     }
 
-    .status-badge{
+    .badge{
       white-space:nowrap;
       padding:8px 12px;
       border-radius:999px;
@@ -272,16 +253,16 @@
       align-self:flex-start;
     }
 
-    .status-pass{
-      background:rgba(126,240,195,.12);
+    .badge.pass{
+      background:rgba(121,230,182,.12);
       color:var(--ok);
-      border:1px solid rgba(126,240,195,.25);
+      border:1px solid rgba(121,230,182,.24);
     }
 
-    .status-out{
-      background:rgba(255,123,123,.12);
+    .badge.out{
+      background:rgba(255,127,127,.12);
       color:var(--danger);
-      border:1px solid rgba(255,123,123,.25);
+      border:1px solid rgba(255,127,127,.24);
     }
 
     .row{
@@ -313,7 +294,7 @@
       word-break:break-word;
     }
 
-    .reason-list{
+    .chips{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
@@ -321,27 +302,42 @@
     }
 
     .chip{
-      background:#21304d;
-      color:#d9e6ff;
-      border:1px solid #32476e;
+      background:#213250;
+      color:#dbe7ff;
+      border:1px solid #32466d;
       border-radius:999px;
       font-size:12px;
       padding:7px 10px;
     }
 
     .chip.out{
-      background:rgba(255,123,123,.12);
-      border-color:rgba(255,123,123,.22);
-      color:#ffd1d1;
+      background:rgba(255,127,127,.12);
+      border-color:rgba(255,127,127,.22);
+      color:#ffd2d2;
     }
 
     .chip.pass{
-      background:rgba(126,240,195,.12);
-      border-color:rgba(126,240,195,.22);
-      color:#c8fff0;
+      background:rgba(121,230,182,.12);
+      border-color:rgba(121,230,182,.22);
+      color:#d0fff0;
     }
 
-    .table-list{
+    .pace-box,
+    .judge-box{
+      background:linear-gradient(135deg, rgba(98,201,255,.12), rgba(126,240,195,.10));
+      border:1px solid rgba(126,240,195,.16);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .pace-main,
+    .judge-main{
+      font-size:20px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .list{
       display:grid;
       gap:10px;
     }
@@ -384,32 +380,16 @@
       border:1px solid rgba(255,255,255,.08);
     }
 
+    .s-g{ background:rgba(121,230,182,.16); color:var(--ok); }
+    .s-o{ background:rgba(127,179,255,.16); color:#8fc0ff; }
+    .s-d{ background:rgba(255,209,102,.16); color:var(--warn); }
+    .s-x{ background:rgba(255,127,127,.16); color:var(--danger); }
+
     .sign-wrap{
       display:flex;
-      gap:8px;
       align-items:center;
-      justify-content:flex-start;
       flex-wrap:wrap;
-    }
-
-    .s-g{ background:rgba(99,211,143,.16); color:var(--g); }
-    .s-o{ background:rgba(127,179,255,.16); color:var(--o); }
-    .s-d{ background:rgba(255,200,87,.16); color:var(--d); }
-    .s-x{ background:rgba(255,123,123,.16); color:var(--x); }
-
-    .pace-box,
-    .judge-box{
-      background:linear-gradient(135deg, rgba(92,200,255,.12), rgba(126,240,195,.10));
-      border:1px solid rgba(126,240,195,.16);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .pace-main,
-    .judge-main{
-      font-size:20px;
-      font-weight:900;
-      margin-bottom:4px;
+      gap:8px;
     }
 
     .podium{
@@ -425,8 +405,8 @@
     }
 
     .podium-card.first{
-      border-color:rgba(126,240,195,.36);
-      background:linear-gradient(180deg, rgba(126,240,195,.12), rgba(92,200,255,.08));
+      border-color:rgba(255,215,106,.38);
+      background:linear-gradient(180deg, rgba(255,215,106,.14), rgba(98,201,255,.08));
     }
 
     .podium-title{
@@ -450,17 +430,16 @@
       font-size:14px;
     }
 
-    .footer-note{
+    .note{
       margin-top:16px;
       color:var(--muted);
       font-size:12px;
     }
 
     @media (min-width: 720px){
-      .race-meta{ grid-template-columns:repeat(4,minmax(0,1fr)); }
-      .stats{ grid-template-columns:repeat(6,minmax(0,1fr)); }
+      .meta-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
       .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .table-list{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .list{ grid-template-columns:repeat(2,minmax(0,1fr)); }
       .podium{ grid-template-columns:1.2fr 1fr 1fr; }
     }
   </style>
@@ -468,13 +447,12 @@
 <body>
   <div class="app">
     <header class="hero">
-      <div class="eyebrow">Heavy Filter / Elimination Site</div>
+      <div class="eyebrow">Osaka Hai 2026 / Elimination Site</div>
       <h1>大阪杯 2026 消去法サイト</h1>
       <p class="sub">
-        強めの消し条件で機械的に候補を削り、通過馬だけを
-        「コース距離適性」と「流れ×脚質」で自動比較する1ファイル版。
+        大阪杯専用の強め条件でSTEP1を機械判定し、通過馬だけをSTEP2で比較する1ファイル版です。
       </p>
-      <div class="race-meta" id="raceMeta"></div>
+      <div class="meta-grid" id="raceMeta"></div>
     </header>
 
     <nav class="nav" aria-label="画面切り替え">
@@ -487,8 +465,8 @@
       <section class="screen active" id="screen-step1">
         <div class="section">
           <div class="section-head">
-            <h2>STEP1：強い消し条件で絞る</h2>
-            <span class="muted">順位付けなし</span>
+            <h2>STEP1：大阪杯専用の消去法</h2>
+            <span class="muted">通過 / 消しだけ判定</span>
           </div>
           <div class="rules" id="rulesList"></div>
           <div class="stats" id="step1Stats"></div>
@@ -497,7 +475,7 @@
         <div class="section">
           <div class="section-head">
             <h2>出走馬一覧</h2>
-            <span class="muted">通過 / 消し理由を表示</span>
+            <span class="muted">消し理由を馬ごとに表示</span>
           </div>
           <div class="grid" id="step1Cards"></div>
         </div>
@@ -506,8 +484,8 @@
       <section class="screen" id="screen-step2">
         <div class="section">
           <div class="section-head">
-            <h2>STEP2：通過馬だけを自動比較</h2>
-            <span class="muted">比較項目は2つだけ</span>
+            <h2>STEP2：通過馬の自動比較</h2>
+            <span class="muted">コース距離適性 / 流れ×脚質</span>
           </div>
           <div class="pace-box" id="paceBox"></div>
         </div>
@@ -517,7 +495,7 @@
             <h2>通過馬比較</h2>
             <span class="muted">◎=2 / ○=1 / △=0 / ×=-1</span>
           </div>
-          <div class="table-list" id="step2Cards"></div>
+          <div class="list" id="step2Cards"></div>
         </div>
       </section>
 
@@ -525,17 +503,17 @@
         <div class="section">
           <div class="section-head">
             <h2>RESULT</h2>
-            <span class="muted">最終参考表示</span>
+            <span class="muted">順位参考表示</span>
           </div>
           <div class="podium" id="resultPodium"></div>
         </div>
 
         <div class="section">
           <div class="judge-box" id="judgeBox"></div>
-          <p class="footer-note">
-            ※ このサイトは「強い消し条件」と「ざっくり比較」を目的にした参考表示です。<br>
-            ※ 近走4角通過順は全馬一括の一次確認がそろっていないため、脚質分類は近走内容ベースの機械判定です。<br>
-            ※ 未確認の細部は断定せず、公開情報の範囲で実装しています。
+          <p class="note">
+            ※ 前走人気は今回一括確認が未了のため、未確認馬には「前走6番人気以下かつ前走6着以下」の条件を適用していません。<br>
+            ※ 脚質分類は近走内容ベースの機械分類です。<br>
+            ※ 推測で断定せず、未確認情報は未確認のまま扱っています。
           </p>
         </div>
       </section>
@@ -545,151 +523,43 @@
   <script>
     (() => {
       const race = {
-        name: "大阪杯 2026",
         officialName: "第70回 大阪杯（GⅠ）",
         date: "2026年4月5日（日）",
-        course: "阪神",
-        surface: "芝",
-        distance: 2000,
+        course: "阪神競馬場",
+        condition: "芝2000m",
         fieldSize: 15,
-        status: "枠順確定",
-        confirmedRange: "枠番・馬番・騎手・前走レース名/着順まで確認",
-        unconfirmed: "全馬の近走4角通過順の一次ソース一括確認は未確認"
+        confirmed: "枠順・馬番・騎手・前走レース名/着順",
+        unconfirmed: "前走人気の全頭一括確認は未了"
       };
 
       const rules = [
-        "7歳以上 かつ 前走6着以下 → 消し",
+        "前走6番人気以下 かつ 前走6着以下 → 消し（前走人気が確認できた馬のみ適用）",
         "前走10着以下 → 消し",
-        "前走が2000mから大きく離れた距離（2400m超または1800m未満）かつ 前走6着以下 → 消し",
-        "前走3000m以上 → 消し",
-        "上の条件に当てはまらなければ通過",
-        "STEP1では順位付けしない"
+        "前走が距離延長 かつ 追込型 → 消し",
+        "7歳以上 かつ 前走6着以下 → 消し",
+        "それ以外は通過"
       ];
 
       const horses = [
-        {
-          draw: 1, no: 1, name: "サンストックトン", age: 7, jockey: "高杉吏麒",
-          prevRace: "AJCC", prevGrade: "G2", prevDistance: 2200, prevFinish: 5,
-          style: "追込型",
-          styleNote: "末脚寄り",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, nearDistanceTop5:true, conditionNegative:true },
-          fitNote: "2200m近辺の実績止まり"
-        },
-        {
-          draw: 2, no: 2, name: "マテンロウレオ", age: 7, jockey: "横山典弘",
-          prevRace: "AJCC", prevGrade: "G2", prevDistance: 2200, prevFinish: 4,
-          style: "差し中団型",
-          styleNote: "中団差し",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "2000m〜2200mで重賞好走歴"
-        },
-        {
-          draw: 2, no: 3, name: "セイウンハーデス", age: 7, jockey: "幸英明",
-          prevRace: "中山記念", prevGrade: "G2", prevDistance: 1800, prevFinish: 12,
-          style: "追込型",
-          styleNote: "後方寄り",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, nearDistanceTop5:false, conditionNegative:true },
-          fitNote: "近走内容が弱い"
-        },
-        {
-          draw: 3, no: 4, name: "ダノンデサイル", age: 5, jockey: "坂井瑠星",
-          prevRace: "有馬記念", prevGrade: "G1", prevDistance: 2500, prevFinish: 3,
-          style: "差し中団型",
-          styleNote: "中団から長く脚",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "中距離G1級の地力"
-        },
-        {
-          draw: 3, no: 5, name: "ショウヘイ", age: 4, jockey: "川田将雅",
-          prevRace: "AJCC", prevGrade: "G2", prevDistance: 2200, prevFinish: 1,
-          style: "差し中団型",
-          styleNote: "好位〜中団",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "2200m重賞勝ち、阪神内回り経験あり"
-        },
-        {
-          draw: 4, no: 6, name: "メイショウタバル", age: 5, jockey: "武豊",
-          prevRace: "有馬記念", prevGrade: "G1", prevDistance: 2500, prevFinish: 13,
-          style: "逃げ先行型",
-          styleNote: "主導権候補",
-          fit: { sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "2000m前後の先行力は高評価"
-        },
-        {
-          draw: 4, no: 7, name: "エコロディノス", age: 4, jockey: "池添謙一",
-          prevRace: "京都記念", prevGrade: "G2", prevDistance: 2200, prevFinish: 3,
-          style: "差し中団型",
-          styleNote: "中団差し",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "2200mで好走、距離短縮は守備範囲"
-        },
-        {
-          draw: 5, no: 8, name: "エコロヴァルツ", age: 5, jockey: "浜中俊",
-          prevRace: "中山記念", prevGrade: "G2", prevDistance: 1800, prevFinish: 3,
-          style: "差し中団型",
-          styleNote: "好位差し",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "1800m〜2000m型"
-        },
-        {
-          draw: 5, no: 9, name: "ヨーホーレイク", age: 8, jockey: "西村淳也",
-          prevRace: "京都記念", prevGrade: "G2", prevDistance: 2200, prevFinish: 7,
-          style: "追込型",
-          styleNote: "差し後方",
-          fit: { sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "阪神2000m向きの実績は強い"
-        },
-        {
-          draw: 6, no: 10, name: "ボルドグフーシュ", age: 7, jockey: "松山弘平",
-          prevRace: "アルゼンチン共和国杯", prevGrade: "G2", prevDistance: 2500, prevFinish: 11,
-          style: "追込型",
-          styleNote: "後方一気寄り",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:true },
-          fitNote: "本来は中長距離寄り"
-        },
-        {
-          draw: 6, no: 11, name: "デビットバローズ", age: 7, jockey: "岩田望来",
-          prevRace: "鳴尾記念", prevGrade: "G3", prevDistance: 2000, prevFinish: 1,
-          style: "逃げ先行型",
-          styleNote: "前で運ぶ",
-          fit: { sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "阪神2000mの前走勝ち"
-        },
-        {
-          draw: 7, no: 12, name: "レーベンスティール", age: 6, jockey: "C.ルメール",
-          prevRace: "中山記念", prevGrade: "G2", prevDistance: 1800, prevFinish: 1,
-          style: "差し中団型",
-          styleNote: "自在性あり",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "1800m〜2000mの中距離適性"
-        },
-        {
-          draw: 7, no: 13, name: "ファウストラーゼン", age: 4, jockey: "岩田康誠",
-          prevRace: "ダイヤモンドS", prevGrade: "G3", prevDistance: 3400, prevFinish: 15,
-          style: "追込型",
-          styleNote: "後方待機",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, nearDistanceTop5:false, conditionNegative:true },
-          fitNote: "距離短縮が極端"
-        },
-        {
-          draw: 8, no: 14, name: "タガノデュード", age: 5, jockey: "古川吉洋",
-          prevRace: "小倉大賞典", prevGrade: "G3", prevDistance: 1800, prevFinish: 1,
-          style: "逃げ先行型",
-          styleNote: "前で粘る形",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "1800m実績からの延長"
-        },
-        {
-          draw: 8, no: 15, name: "クロワデュノール", age: 4, jockey: "北村友一",
-          prevRace: "ジャパンC", prevGrade: "G1", prevDistance: 2400, prevFinish: 4,
-          style: "差し中団型",
-          styleNote: "中団から差す",
-          fit: { sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, nearDistanceTop5:true, conditionNegative:false },
-          fitNote: "中距離〜2400mで高水準"
-        }
+        { no:1, draw:1, name:"サンストックトン", age:7, jockey:"高杉吏麒", prevRace:"AJCC", prevDistance:2200, prevFinish:5, prevPopularity:null, style:"追込型", styleNote:"末脚寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:true, negative:true }, fitNote:"2200m近辺の実績止まり" },
+        { no:2, draw:2, name:"マテンロウレオ", age:7, jockey:"横山典弘", prevRace:"AJCC", prevDistance:2200, prevFinish:4, prevPopularity:null, style:"差し中団型", styleNote:"中団差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"2000m〜2200mで重賞好走歴" },
+        { no:3, draw:2, name:"セイウンハーデス", age:7, jockey:"幸英明", prevRace:"中山記念", prevDistance:1800, prevFinish:12, prevPopularity:null, style:"追込型", styleNote:"後方寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:false, negative:true }, fitNote:"近走内容が弱い" },
+        { no:4, draw:3, name:"ダノンデサイル", age:5, jockey:"坂井瑠星", prevRace:"有馬記念", prevDistance:2500, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"中団から長く脚", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"中距離G1級の地力" },
+        { no:5, draw:3, name:"ショウヘイ", age:4, jockey:"川田将雅", prevRace:"AJCC", prevDistance:2200, prevFinish:1, prevPopularity:null, style:"差し中団型", styleNote:"好位〜中団", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"2200m重賞勝ち" },
+        { no:6, draw:4, name:"メイショウタバル", age:5, jockey:"武豊", prevRace:"有馬記念", prevDistance:2500, prevFinish:13, prevPopularity:null, style:"逃げ先行型", styleNote:"主導権候補", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"2000m前後の先行力は高評価" },
+        { no:7, draw:4, name:"エコロディノス", age:4, jockey:"池添謙一", prevRace:"京都記念", prevDistance:2200, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"中団差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"2200mで好走" },
+        { no:8, draw:5, name:"エコロヴァルツ", age:5, jockey:"浜中俊", prevRace:"中山記念", prevDistance:1800, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"好位差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"1800m〜2000m型" },
+        { no:9, draw:5, name:"ヨーホーレイク", age:8, jockey:"西村淳也", prevRace:"京都記念", prevDistance:2200, prevFinish:7, prevPopularity:null, style:"追込型", styleNote:"差し後方", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"阪神2000m向きの実績は強い" },
+        { no:10, draw:6, name:"ボルドグフーシュ", age:7, jockey:"松山弘平", prevRace:"アルゼンチン共和国杯", prevDistance:2500, prevFinish:11, prevPopularity:null, style:"追込型", styleNote:"後方一気寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:true }, fitNote:"本来は中長距離寄り" },
+        { no:11, draw:6, name:"デビットバローズ", age:7, jockey:"岩田望来", prevRace:"鳴尾記念", prevDistance:2000, prevFinish:1, prevPopularity:null, style:"逃げ先行型", styleNote:"前で運ぶ", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"阪神2000mの前走勝ち" },
+        { no:12, draw:7, name:"レーベンスティール", age:6, jockey:"C.ルメール", prevRace:"中山記念", prevDistance:1800, prevFinish:1, prevPopularity:null, style:"差し中団型", styleNote:"自在性あり", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"1800m〜2000mの中距離適性" },
+        { no:13, draw:7, name:"ファウストラーゼン", age:4, jockey:"岩田康誠", prevRace:"ダイヤモンドS", prevDistance:3400, prevFinish:15, prevPopularity:null, style:"追込型", styleNote:"後方待機", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:false, negative:true }, fitNote:"距離短縮が極端" },
+        { no:14, draw:8, name:"タガノデュード", age:5, jockey:"古川吉洋", prevRace:"小倉大賞典", prevDistance:1800, prevFinish:1, prevPopularity:null, style:"逃げ先行型", styleNote:"前で粘る形", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"1800m実績からの延長" },
+        { no:15, draw:8, name:"クロワデュノール", age:4, jockey:"北村友一", prevRace:"ジャパンC", prevDistance:2400, prevFinish:4, prevPopularity:null, style:"差し中団型", styleNote:"中団から差す", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"中距離〜2400mで高水準" }
       ];
 
-      const signScoreMap = { "◎": 2, "○": 1, "△": 0, "×": -1 };
+      const signScoreMap = { "◎":2, "○":1, "△":0, "×":-1 };
+      const targetDistance = 2000;
 
       const elRaceMeta = document.getElementById("raceMeta");
       const elRulesList = document.getElementById("rulesList");
@@ -700,39 +570,46 @@
       const elResultPodium = document.getElementById("resultPodium");
       const elJudgeBox = document.getElementById("judgeBox");
 
-      function badgeClass(sign){
-        if(sign === "◎") return "s-g";
-        if(sign === "○") return "s-o";
-        if(sign === "△") return "s-d";
-        return "s-x";
+      function isDistanceExtension(horse){
+        return horse.prevDistance < targetDistance;
       }
 
       function evaluateStep1(horse){
         const reasons = [];
+        const info = [];
+
+        const prevPopularityKnown = typeof horse.prevPopularity === "number";
+        if (!prevPopularityKnown) {
+          info.push("前走人気は未確認");
+        }
+
+        if (prevPopularityKnown && horse.prevPopularity >= 6 && horse.prevFinish >= 6) {
+          reasons.push("前走6番人気以下かつ前走6着以下");
+        }
+
+        if (horse.prevFinish >= 10) {
+          reasons.push("前走10着以下");
+        }
+
+        if (isDistanceExtension(horse) && horse.style === "追込型") {
+          reasons.push("距離延長かつ追込型");
+        }
 
         if (horse.age >= 7 && horse.prevFinish >= 6) {
           reasons.push("7歳以上かつ前走6着以下");
         }
-        if (horse.prevFinish >= 10) {
-          reasons.push("前走10着以下");
-        }
-        if ((horse.prevDistance > 2400 || horse.prevDistance < 1800) && horse.prevFinish >= 6) {
-          reasons.push("距離条件が大きくズレた前走で凡走");
-        }
-        if (horse.prevDistance >= 3000) {
-          reasons.push("前走3000m以上");
-        }
 
         return {
           pass: reasons.length === 0,
-          reasons
+          reasons,
+          info
         };
       }
 
       function courseDistanceSign(horse){
         const f = horse.fit || {};
         if (f.sameCourseDistanceTop3) return "◎";
-        if (f.sameDistanceTop3 || (f.nearDistanceTop3 && !f.conditionNegative)) return "○";
+        if (f.sameDistanceTop3 || (f.nearDistanceTop3 && !f.negative)) return "○";
         if (f.sameDistanceTop5 || f.nearDistanceTop5) return "△";
         return "×";
       }
@@ -740,12 +617,12 @@
       function computePace(passers){
         const frontCount = passers.filter(h => h.style === "逃げ先行型").length;
         if (frontCount <= 2) {
-          return { key: "slow", label: "スロー寄り", desc: "先行型が少なく、前有利をやや想定" };
+          return { key:"slow", label:"スロー寄り", desc:"先行型が少なく、前で運べる馬にやや追い風の想定。" };
         }
         if (frontCount >= 4) {
-          return { key: "high", label: "ハイ寄り", desc: "先行型が多く、差し優位をやや想定" };
+          return { key:"high", label:"ハイ寄り", desc:"先行型が多く、差し・追込にやや向く想定。" };
         }
-        return { key: "middle", label: "ミドル", desc: "先行型は適度で、極端な展開になりにくい想定" };
+        return { key:"middle", label:"ミドル", desc:"先行型は適度で、極端な流れになりにくい想定。" };
       }
 
       function flowStyleSign(style, paceKey){
@@ -759,7 +636,6 @@
           if (style === "差し中団型") return "○";
           return "△";
         }
-        // middle
         if (style === "差し中団型") return "◎";
         if (style === "逃げ先行型") return "○";
         return "○";
@@ -774,75 +650,56 @@
 
       function finalJudge(ranked){
         if (ranked.length === 0) {
-          return {
-            title: "見送り寄り",
-            body: "STEP1通過馬がいないため、買い候補を絞れません。"
-          };
+          return { title:"見送り寄り", body:"STEP1通過馬がいないため、機械比較の対象がありません。" };
         }
-
         if (ranked.length === 1) {
-          return {
-            title: "本命候補あり",
-            body: "通過馬が1頭だけなので、機械判定上は単独候補です。"
-          };
+          return { title:"本命候補あり", body:"通過馬が1頭だけなので、機械判定上は単独候補です。" };
         }
 
         const first = ranked[0];
         const second = ranked[1];
         const third = ranked[2];
 
-        if (
-          first.total >= second.total + 2 &&
-          (first.courseScore > second.courseScore || first.flowScore > second.flowScore)
-        ) {
-          return {
-            title: "本命候補あり",
-            body: "1位が点数面で一歩抜けています。"
-          };
+        if (first.total >= second.total + 2) {
+          return { title:"本命候補あり", body:"1位が点数面で一歩抜けています。" };
         }
 
-        if (
-          first.total === second.total &&
-          first.courseScore === second.courseScore &&
-          first.flowScore === second.flowScore
-        ) {
-          return {
-            title: "接戦",
-            body: "1位と2位が完全同点。優劣はつけにくいです。"
-          };
+        if (first.total === second.total &&
+            first.courseScore === second.courseScore &&
+            first.flowScore === second.flowScore) {
+          return { title:"接戦", body:"1位と2位が完全同点です。" };
         }
 
         if (third && first.total - third.total <= 1) {
-          return {
-            title: "見送り寄り",
-            body: "上位3頭が密集しており、機械比較だけでは抜けが作れません。"
-          };
+          return { title:"見送り寄り", body:"上位3頭がかなり密集しています。" };
         }
 
         if (first.total === second.total) {
-          return {
-            title: "接戦",
-            body: "1位と2位が同点で、タイブレークでも差は小さいです。"
-          };
+          return { title:"接戦", body:"1位と2位が同点で、決め手に欠けます。" };
         }
 
-        return {
-          title: "本命候補あり",
-          body: "1位はいるものの、2位以下との差は大きすぎません。"
-        };
+        return { title:"本命候補あり", body:"1位はいるものの、2位以下との差は大きすぎません。" };
+      }
+
+      function badgeClass(sign){
+        if (sign === "◎") return "s-g";
+        if (sign === "○") return "s-o";
+        if (sign === "△") return "s-d";
+        return "s-x";
       }
 
       function renderMeta(){
         const items = [
-          { k:"レース名", v: race.officialName },
-          { k:"開催日", v: race.date },
-          { k:"競馬場", v: race.course },
-          { k:"条件", v: `${race.surface}${race.distance}m` },
-          { k:"頭数", v: `${race.fieldSize}頭` },
-          { k:"状態", v: race.status },
-          { k:"確認範囲", v: race.confirmedRange },
-          { k:"未確認", v: race.unconfirmed }
+          { k:"レース名", v:race.officialName },
+          { k:"開催日", v:race.date },
+          { k:"競馬場", v:race.course },
+          { k:"条件", v:race.condition },
+          { k:"頭数", v:`${race.fieldSize}頭` },
+          { k:"確認済み", v:race.confirmed },
+          { k:"未確認", v:race.unconfirmed },
+          { k:"用途", v:"大阪杯専用の消去法" }
         ];
+
         elRaceMeta.innerHTML = items.map(item => `
           <div class="mini">
             <span class="k">${item.k}</span>
@@ -861,9 +718,9 @@
         const out = total - passed;
 
         const stats = [
-          { label:"出走頭数", value: total },
-          { label:"消去頭数", value: out },
-          { label:"通過頭数", value: passed }
+          { label:"出走頭数", value:total },
+          { label:"消去頭数", value:out },
+          { label:"通過頭数", value:passed }
         ];
 
         elStep1Stats.innerHTML = stats.map(s => `
@@ -874,12 +731,8 @@
         `).join("");
 
         elStep1Cards.innerHTML = evaluated.map(h => {
-          const statusClass = h.step1.pass ? "status-pass" : "status-out";
-          const statusText = h.step1.pass ? "通過" : "消し";
-          const reasons = h.step1.pass
-            ? [`強い消し条件に非該当`]
-            : h.step1.reasons;
-
+          const reasons = h.step1.pass ? ["強い消し条件に非該当"] : h.step1.reasons;
+          const info = h.step1.info || [];
           return `
             <article class="horse-card">
               <div class="horse-top">
@@ -890,7 +743,7 @@
                   </div>
                   <div class="horse-meta">${h.age}歳 / 騎手：${h.jockey}</div>
                 </div>
-                <span class="status-badge ${statusClass}">${statusText}</span>
+                <span class="badge ${h.step1.pass ? "pass" : "out"}">${h.step1.pass ? "通過" : "消し"}</span>
               </div>
 
               <div class="row">
@@ -903,17 +756,18 @@
                   <span class="value">${h.prevFinish}着</span>
                 </div>
                 <div class="cell">
-                  <span class="label">馬番</span>
-                  <span class="value">${h.no}</span>
+                  <span class="label">前走距離</span>
+                  <span class="value">${h.prevDistance}m</span>
                 </div>
                 <div class="cell">
-                  <span class="label">判定</span>
-                  <span class="value">${statusText}</span>
+                  <span class="label">脚質分類</span>
+                  <span class="value">${h.style}</span>
                 </div>
               </div>
 
-              <div class="reason-list">
+              <div class="chips">
                 ${reasons.map(r => `<span class="chip ${h.step1.pass ? "pass" : "out"}">${r}</span>`).join("")}
+                ${info.map(i => `<span class="chip">${i}</span>`).join("")}
               </div>
             </article>
           `;
@@ -925,6 +779,15 @@
           <div class="pace-main">想定ペース：${pace.label}</div>
           <div class="muted">${pace.desc}</div>
         `;
+
+        if (!ranked.length) {
+          elStep2Cards.innerHTML = `
+            <div class="rank-card">
+              <div class="muted">STEP1通過馬がいないため、比較対象はありません。</div>
+            </div>
+          `;
+          return;
+        }
 
         elStep2Cards.innerHTML = ranked.map(h => `
           <article class="rank-card">
@@ -962,27 +825,19 @@
               </div>
             </div>
 
-            <div class="reason-list">
+            <div class="chips">
               <span class="chip">コース距離 ${h.courseScore}点</span>
               <span class="chip">流れ×脚質 ${h.flowScore}点</span>
               <span class="chip">${h.styleNote}</span>
             </div>
           </article>
         `).join("");
-
-        if (!ranked.length) {
-          elStep2Cards.innerHTML = `
-            <div class="rank-card">
-              <div class="muted">STEP1通過馬がいないため、比較対象はありません。</div>
-            </div>
-          `;
-        }
       }
 
       function renderResult(ranked, judge){
         const top3 = ranked.slice(0, 3);
-
         const labels = ["1位候補", "2位候補", "3位候補"];
+
         elResultPodium.innerHTML = labels.map((label, idx) => {
           const h = top3[idx];
           if (!h) {
@@ -990,7 +845,7 @@
               <div class="podium-card ${idx === 0 ? "first" : ""}">
                 <div class="podium-title">${label}</div>
                 <div class="podium-name">該当なし</div>
-                <div class="podium-sub">STEP1通過馬不足</div>
+                <div class="podium-sub">通過馬不足</div>
               </div>
             `;
           }
@@ -1011,41 +866,6 @@
         `;
       }
 
-      function build(){
-        renderMeta();
-        renderRules();
-
-        const evaluated = horses.map(h => ({
-          ...h,
-          step1: evaluateStep1(h)
-        }));
-
-        renderStep1(evaluated);
-
-        const passers = evaluated.filter(h => h.step1.pass);
-        const pace = computePace(passers);
-
-        const ranked = passers.map(h => {
-          const courseSign = courseDistanceSign(h);
-          const flowSign = flowStyleSign(h.style, pace.key);
-          const courseScore = signScoreMap[courseSign];
-          const flowScore = signScoreMap[flowSign];
-          return {
-            ...h,
-            courseSign,
-            flowSign,
-            courseScore,
-            flowScore,
-            total: courseScore + flowScore
-          };
-        }).sort(compareRank).map((h, idx) => ({ ...h, rank: idx + 1 }));
-
-        const judge = finalJudge(ranked);
-
-        renderStep2(ranked, pace);
-        renderResult(ranked, judge);
-      }
-
       function setupTabs(){
         const buttons = Array.from(document.querySelectorAll(".tab-btn"));
         const screens = {
@@ -1062,9 +882,47 @@
             Object.values(screens).forEach(screen => screen.classList.remove("active"));
             screens[btn.dataset.screen].classList.add("active");
 
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top:0, behavior:"smooth" });
           });
         });
+      }
+
+      function build(){
+        renderMeta();
+        renderRules();
+
+        const evaluated = horses.map(h => ({
+          ...h,
+          step1: evaluateStep1(h)
+        }));
+
+        renderStep1(evaluated);
+
+        const passers = evaluated.filter(h => h.step1.pass);
+        const pace = computePace(passers);
+
+        const ranked = passers
+          .map(h => {
+            const courseSign = courseDistanceSign(h);
+            const flowSign = flowStyleSign(h.style, pace.key);
+            const courseScore = signScoreMap[courseSign];
+            const flowScore = signScoreMap[flowSign];
+            return {
+              ...h,
+              courseSign,
+              flowSign,
+              courseScore,
+              flowScore,
+              total: courseScore + flowScore
+            };
+          })
+          .sort(compareRank)
+          .map((h, idx) => ({ ...h, rank: idx + 1 }));
+
+        const judge = finalJudge(ranked);
+
+        renderStep2(ranked, pace);
+        renderResult(ranked, judge);
       }
 
       setupTabs();
