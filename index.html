@@ -2,519 +2,494 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>大阪杯 2026 消去法サイト</title>
   <style>
     :root{
-      --bg:#0b1220;
-      --bg2:#101a2f;
-      --card:#16213a;
-      --card2:#1b2947;
-      --line:#2d3f63;
-      --text:#edf3ff;
-      --muted:#9fb0cf;
-      --accent:#62c9ff;
-      --accent2:#7ef0c3;
-      --danger:#ff7f7f;
-      --warn:#ffd166;
-      --ok:#79e6b6;
-      --gold:#ffd76a;
-      --shadow:0 12px 28px rgba(0,0,0,.28);
+      --bg:#0b1020;
+      --panel:#121a2f;
+      --panel-2:#18223b;
+      --line:#2b3656;
+      --text:#e8edf8;
+      --muted:#a7b2cc;
+      --accent:#67b3ff;
+      --accent-2:#8ef0c7;
+      --danger:#ff7b7b;
+      --warn:#ffcf66;
+      --ok:#7ee787;
+      --x:#ff6b6b;
+      --delta:#ffd166;
+      --circle:#a7b2cc;
+      --double:#6ee7b7;
+      --gold:#ffd700;
+      --silver:#c0c7d1;
+      --bronze:#d59b6a;
+      --shadow:0 10px 30px rgba(0,0,0,.28);
       --radius:18px;
-      --tap:48px;
     }
-
-    *{box-sizing:border-box;}
-    html,body{
-      margin:0;
-      padding:0;
-      background:linear-gradient(180deg,#08111f 0%, #0e1730 100%);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-      line-height:1.5;
-      -webkit-text-size-adjust:100%;
-    }
-
-    body{
-      min-height:100vh;
-      padding:16px 14px 30px;
-    }
-
-    .app{
-      max-width:900px;
-      margin:0 auto;
-    }
-
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#09101d 0%,#0f1730 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif}
+    body{min-height:100vh}
+    a{color:inherit}
+    .app{max-width:760px;margin:0 auto;padding:16px 14px 42px}
     .hero{
-      background:linear-gradient(135deg, rgba(98,201,255,.16), rgba(126,240,195,.10));
-      border:1px solid rgba(126,240,195,.14);
+      background:linear-gradient(135deg,rgba(103,179,255,.16),rgba(142,240,199,.10));
+      border:1px solid rgba(255,255,255,.08);
       border-radius:24px;
-      padding:18px 16px;
+      padding:20px 18px 18px;
       box-shadow:var(--shadow);
-      margin-bottom:14px;
+      backdrop-filter: blur(8px);
     }
-
-    .eyebrow{
-      font-size:12px;
-      color:var(--accent2);
-      letter-spacing:.08em;
-      font-weight:800;
-      text-transform:uppercase;
-    }
-
-    h1{
-      margin:6px 0 8px;
-      font-size:28px;
-      line-height:1.15;
-    }
-
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-    }
-
+    .eyebrow{font-size:12px;color:var(--accent-2);letter-spacing:.08em;font-weight:700}
+    h1{margin:8px 0 6px;font-size:28px;line-height:1.18}
+    .subtitle{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
     .meta-grid{
-      margin-top:14px;
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
       gap:10px;
+      margin-top:16px;
     }
-
-    .mini{
-      background:rgba(255,255,255,.03);
+    .meta-card{
+      background:rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.06);
-      border-radius:14px;
-      padding:10px 12px;
+      border-radius:16px;
+      padding:12px;
     }
-
-    .mini .k{
-      display:block;
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:2px;
-    }
-
-    .mini .v{
-      display:block;
-      font-size:14px;
-      font-weight:800;
-    }
+    .meta-label{font-size:11px;color:var(--muted);margin-bottom:6px}
+    .meta-value{font-size:15px;font-weight:700}
 
     .nav{
-      position:sticky;
-      top:0;
-      z-index:20;
-      margin:14px 0;
-      padding:8px;
-      backdrop-filter:blur(12px);
-      background:rgba(8,16,30,.78);
-      border:1px solid rgba(255,255,255,.08);
+      position:sticky;top:0;z-index:20;
+      margin:14px 0 18px;
+      padding:10px;
+      background:rgba(10,16,31,.78);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,.06);
       border-radius:18px;
+      box-shadow:var(--shadow);
+    }
+    .nav-row{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:8px;
     }
-
-    .tab-btn{
-      min-height:var(--tap);
+    .nav-btn{
+      min-height:48px;
       border:none;
       border-radius:14px;
-      background:#172640;
+      background:#1a2440;
       color:var(--text);
       font-size:14px;
-      font-weight:900;
-      padding:12px 10px;
+      font-weight:700;
+      padding:10px 8px;
       cursor:pointer;
+      transition:.2s ease;
     }
-
-    .tab-btn.active{
-      background:linear-gradient(135deg, rgba(98,201,255,.26), rgba(126,240,195,.22));
-      outline:1px solid rgba(126,240,195,.24);
+    .nav-btn.active{
+      background:linear-gradient(135deg,var(--accent),#3b82f6);
+      color:#05101f;
     }
-
-    .screen{ display:none; }
-    .screen.active{ display:block; }
+    .screen{display:none}
+    .screen.active{display:block}
 
     .section{
-      background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:22px;
-      padding:14px;
+      background:rgba(18,26,47,.92);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:20px;
+      padding:16px;
       box-shadow:var(--shadow);
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
-
-    .section-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
     .section h2{
+      margin:0 0 8px;
+      font-size:22px;
+      line-height:1.3;
+    }
+    .section .lead{
       margin:0;
-      font-size:20px;
-    }
-
-    .muted{ color:var(--muted); }
-
-    .rules{
-      display:grid;
-      gap:8px;
-    }
-
-    .rule{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:10px 12px;
+      color:var(--muted);
       font-size:14px;
+      line-height:1.7;
     }
 
-    .stats{
-      margin-top:12px;
+    .rule-list,.info-list{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:10px;
+      margin-top:14px;
+    }
+    .rule-item,.info-item{
+      background:var(--panel-2);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;
+      padding:13px;
+    }
+    .rule-title,.info-title{
+      font-size:14px;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+    .rule-desc,.info-desc{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
     }
 
-    .stat{
-      background:var(--card);
-      border:1px solid var(--line);
+    .summary-cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+    .summary-card{
+      background:#10192f;
+      border:1px solid rgba(255,255,255,.06);
       border-radius:16px;
       padding:12px;
       text-align:center;
     }
-
-    .stat .num{
-      display:block;
+    .summary-num{
       font-size:24px;
       font-weight:900;
-      line-height:1.05;
-      margin-bottom:4px;
+      line-height:1;
+      margin-bottom:6px;
     }
+    .summary-label{font-size:12px;color:var(--muted)}
 
-    .grid{
+    .horse-list{
       display:grid;
       gap:12px;
+      margin-top:16px;
     }
-
     .horse-card{
-      background:linear-gradient(180deg,var(--card),var(--card2));
-      border:1px solid var(--line);
+      background:#10182c;
+      border:1px solid rgba(255,255,255,.06);
       border-radius:18px;
-      padding:12px;
+      padding:14px;
     }
-
     .horse-top{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .horse-left{
+      display:flex;
       gap:10px;
-      margin-bottom:8px;
+      min-width:0;
     }
-
-    .horse-left{ min-width:0; }
-
-    .horse-no{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:34px;
-      height:34px;
-      border-radius:999px;
-      background:#223355;
-      border:1px solid #3c4f78;
+    .number-chip{
+      min-width:40px;height:40px;border-radius:50%;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,#223154,#16213a);
+      border:1px solid rgba(255,255,255,.08);
       font-weight:900;
-      margin-right:8px;
-      vertical-align:middle;
+      font-size:15px;
     }
-
     .horse-name{
       font-size:18px;
       font-weight:900;
-      vertical-align:middle;
+      line-height:1.25;
+      margin:0 0 4px;
     }
-
-    .horse-meta{
-      margin-top:4px;
+    .horse-sub{
       color:var(--muted);
       font-size:13px;
+      line-height:1.5;
     }
-
-    .badge{
-      white-space:nowrap;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:900;
-      align-self:flex-start;
-    }
-
-    .badge.pass{
-      background:rgba(121,230,182,.12);
-      color:var(--ok);
-      border:1px solid rgba(121,230,182,.24);
-    }
-
-    .badge.out{
-      background:rgba(255,127,127,.12);
-      color:var(--danger);
-      border:1px solid rgba(255,127,127,.24);
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-      margin-top:8px;
-    }
-
-    .cell{
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:12px;
-      padding:10px;
-      min-width:0;
-    }
-
-    .cell .label{
-      display:block;
-      color:var(--muted);
+    .status-badge{
+      flex:0 0 auto;
+      min-width:84px;
+      text-align:center;
       font-size:12px;
-      margin-bottom:3px;
+      font-weight:900;
+      border-radius:999px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.08);
     }
-
-    .cell .value{
-      display:block;
-      font-size:14px;
-      font-weight:700;
-      word-break:break-word;
+    .status-pass{
+      background:rgba(126,231,135,.14);
+      color:var(--ok);
     }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
+    .status-cut{
+      background:rgba(255,123,123,.14);
+      color:var(--danger);
+    }
+    .horse-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:8px;
       margin-top:10px;
     }
+    .mini{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:12px;
+      padding:10px;
+    }
+    .mini .k{font-size:11px;color:var(--muted);margin-bottom:4px}
+    .mini .v{font-size:13px;line-height:1.5;font-weight:700}
 
-    .chip{
-      background:#213250;
-      color:#dbe7ff;
-      border:1px solid #32466d;
-      border-radius:999px;
+    .reason-wrap{
+      margin-top:10px;
+      display:grid;
+      gap:8px;
+    }
+    .reason-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+      background:rgba(255,107,107,.12);
+      color:#ffc3c3;
+      border:1px solid rgba(255,107,107,.18);
+      border-radius:12px;
+      padding:8px 10px;
       font-size:12px;
-      padding:7px 10px;
+      line-height:1.5;
+      font-weight:700;
+    }
+    .reason-ok{
+      background:rgba(126,231,135,.10);
+      color:#d0ffd7;
+      border:1px solid rgba(126,231,135,.18);
     }
 
-    .chip.out{
-      background:rgba(255,127,127,.12);
-      border-color:rgba(255,127,127,.22);
-      color:#ffd2d2;
+    .comparison-list{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
     }
-
-    .chip.pass{
-      background:rgba(121,230,182,.12);
-      border-color:rgba(121,230,182,.22);
-      color:#d0fff0;
-    }
-
-    .pace-box,
-    .judge-box{
-      background:linear-gradient(135deg, rgba(98,201,255,.12), rgba(126,240,195,.10));
-      border:1px solid rgba(126,240,195,.16);
+    .comparison-card{
+      background:#10182c;
+      border:1px solid rgba(255,255,255,.06);
       border-radius:18px;
       padding:14px;
     }
-
-    .pace-main,
-    .judge-main{
-      font-size:20px;
-      font-weight:900;
-      margin-bottom:4px;
-    }
-
-    .list{
-      display:grid;
-      gap:10px;
-    }
-
-    .rank-card{
-      background:linear-gradient(180deg,var(--card),var(--card2));
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:12px;
-    }
-
-    .rank-head{
+    .comparison-head{
       display:flex;
-      align-items:center;
       justify-content:space-between;
+      align-items:flex-start;
       gap:10px;
-      margin-bottom:8px;
+      margin-bottom:12px;
     }
-
-    .rank-num{
-      font-size:14px;
-      font-weight:900;
-      color:var(--accent2);
-    }
-
-    .score{
-      font-size:18px;
-      font-weight:900;
-    }
-
-    .sign{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:34px;
-      height:34px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:17px;
+    .score-badge{
+      min-width:62px;
+      text-align:center;
+      padding:10px 8px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#24385f,#16223b);
       border:1px solid rgba(255,255,255,.08);
+      font-size:13px;
+      font-weight:900;
     }
-
-    .s-g{ background:rgba(121,230,182,.16); color:var(--ok); }
-    .s-o{ background:rgba(127,179,255,.16); color:#8fc0ff; }
-    .s-d{ background:rgba(255,209,102,.16); color:var(--warn); }
-    .s-x{ background:rgba(255,127,127,.16); color:var(--danger); }
-
-    .sign-wrap{
-      display:flex;
-      align-items:center;
-      flex-wrap:wrap;
+    .rating-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:8px;
     }
+    .rating-box{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:14px;
+      padding:10px;
+      text-align:center;
+    }
+    .rating-label{
+      font-size:11px;color:var(--muted);margin-bottom:6px
+    }
+    .mark{
+      display:inline-grid;
+      place-items:center;
+      width:34px;height:34px;
+      border-radius:50%;
+      font-size:18px;
+      font-weight:900;
+      margin:0 auto 6px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .mark.g{background:rgba(110,231,183,.16);color:var(--double)}
+    .mark.o{background:rgba(103,179,255,.16);color:var(--accent)}
+    .mark.d{background:rgba(255,209,102,.16);color:var(--delta)}
+    .mark.x{background:rgba(255,107,107,.16);color:var(--x)}
+    .rating-point{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .comment{
+      margin-top:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:14px;
+      padding:11px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.65;
+    }
 
+    .result-top{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
     .podium{
       display:grid;
       gap:10px;
     }
-
     .podium-card{
-      border-radius:20px;
+      border-radius:18px;
       padding:14px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,var(--card),var(--card2));
+      border:1px solid rgba(255,255,255,.08);
+      background:#111b31;
     }
-
-    .podium-card.first{
-      border-color:rgba(255,215,106,.38);
-      background:linear-gradient(180deg, rgba(255,215,106,.14), rgba(98,201,255,.08));
+    .podium-card.rank1{
+      background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(103,179,255,.10));
+      border-color:rgba(255,215,0,.22);
     }
-
-    .podium-title{
-      color:var(--muted);
+    .podium-card.rank2{
+      background:linear-gradient(135deg,rgba(192,199,209,.16),rgba(103,179,255,.08));
+      border-color:rgba(192,199,209,.18);
+    }
+    .podium-card.rank3{
+      background:linear-gradient(135deg,rgba(213,155,106,.16),rgba(103,179,255,.08));
+      border-color:rgba(213,155,106,.18);
+    }
+    .podium-rank{
       font-size:12px;
-      font-weight:800;
-      margin-bottom:6px;
-      text-transform:uppercase;
+      font-weight:900;
       letter-spacing:.08em;
+      margin-bottom:8px;
+      color:#f7f9ff;
+      opacity:.88;
     }
-
     .podium-name{
       font-size:24px;
       font-weight:900;
-      line-height:1.15;
+      line-height:1.2;
       margin-bottom:6px;
     }
+    .podium-meta{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
 
-    .podium-sub{
+    .final-judge{
+      margin-top:14px;
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(135deg,rgba(103,179,255,.14),rgba(142,240,199,.10));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .judge-label{
+      font-size:12px;
+      color:var(--accent-2);
+      font-weight:900;
+      letter-spacing:.08em;
+      margin-bottom:8px;
+    }
+    .judge-value{
+      font-size:26px;
+      font-weight:900;
+      line-height:1.2;
+      margin-bottom:8px;
+    }
+    .judge-desc{
       color:var(--muted);
       font-size:14px;
+      line-height:1.7;
     }
 
-    .note{
-      margin-top:16px;
+    .footer-note{
+      margin-top:14px;
       color:var(--muted);
       font-size:12px;
+      line-height:1.7;
     }
 
-    @media (min-width: 720px){
-      .meta-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); }
-      .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .list{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .podium{ grid-template-columns:1.2fr 1fr 1fr; }
+    @media (max-width:520px){
+      h1{font-size:24px}
+      .summary-cards{grid-template-columns:1fr 1fr 1fr}
+      .rating-grid{grid-template-columns:1fr}
+      .horse-grid{grid-template-columns:1fr}
+      .meta-grid{grid-template-columns:1fr 1fr}
     }
   </style>
 </head>
 <body>
   <div class="app">
     <header class="hero">
-      <div class="eyebrow">Osaka Hai 2026 / Elimination Site</div>
+      <div class="eyebrow">DATA × ELIMINATION × RANKING</div>
       <h1>大阪杯 2026 消去法サイト</h1>
-      <p class="sub">
-        大阪杯専用の強め条件でSTEP1を機械判定し、通過馬だけをSTEP2で比較する1ファイル版です。
+      <p class="subtitle">
+        STEP1で強めの消し条件を機械的に適用し、STEP2で通過馬だけを比較します。<br>
+        予想を語りすぎず、まずは「切る」、残ったら「比べる」の構成です。
       </p>
-      <div class="meta-grid" id="raceMeta"></div>
+      <div class="meta-grid" id="metaGrid"></div>
     </header>
 
     <nav class="nav" aria-label="画面切り替え">
-      <button class="tab-btn active" data-screen="step1">STEP1</button>
-      <button class="tab-btn" data-screen="step2">STEP2</button>
-      <button class="tab-btn" data-screen="result">RESULT</button>
+      <div class="nav-row">
+        <button class="nav-btn active" data-screen="step1">STEP1</button>
+        <button class="nav-btn" data-screen="step2">STEP2</button>
+        <button class="nav-btn" data-screen="result">RESULT</button>
+      </div>
     </nav>
 
     <main>
       <section class="screen active" id="screen-step1">
         <div class="section">
-          <div class="section-head">
-            <h2>STEP1：大阪杯専用の消去法</h2>
-            <span class="muted">通過 / 消しだけ判定</span>
-          </div>
-          <div class="rules" id="rulesList"></div>
-          <div class="stats" id="step1Stats"></div>
+          <h2>STEP1｜データでばっさり切る</h2>
+          <p class="lead">
+            大阪杯の過去傾向を踏まえて、強めの条件だけで通過 / 消しを判定します。
+            ここでは順位づけは行いません。
+          </p>
+
+          <div class="info-list" id="raceInfoList"></div>
+          <div class="rule-list" id="ruleList"></div>
+          <div class="summary-cards" id="step1Summary"></div>
         </div>
 
         <div class="section">
-          <div class="section-head">
-            <h2>出走馬一覧</h2>
-            <span class="muted">消し理由を馬ごとに表示</span>
-          </div>
-          <div class="grid" id="step1Cards"></div>
+          <h2>出走馬カード一覧</h2>
+          <p class="lead">
+            各馬の前走と通過判定、消し理由を表示します。
+          </p>
+          <div class="horse-list" id="step1HorseList"></div>
         </div>
       </section>
 
       <section class="screen" id="screen-step2">
         <div class="section">
-          <div class="section-head">
-            <h2>STEP2：通過馬の自動比較</h2>
-            <span class="muted">コース距離適性 / 流れ×脚質</span>
-          </div>
-          <div class="pace-box" id="paceBox"></div>
+          <h2>STEP2｜通過馬だけ比較する</h2>
+          <p class="lead" id="step2Lead"></p>
+          <div class="info-list" id="logicList"></div>
         </div>
 
         <div class="section">
-          <div class="section-head">
-            <h2>通過馬比較</h2>
-            <span class="muted">◎=2 / ○=1 / △=0 / ×=-1</span>
-          </div>
-          <div class="list" id="step2Cards"></div>
+          <h2>通過馬一覧</h2>
+          <p class="lead" id="paceText"></p>
+          <div class="comparison-list" id="comparisonList"></div>
         </div>
       </section>
 
       <section class="screen" id="screen-result">
         <div class="section">
-          <div class="section-head">
-            <h2>RESULT</h2>
-            <span class="muted">順位参考表示</span>
-          </div>
-          <div class="podium" id="resultPodium"></div>
-        </div>
-
-        <div class="section">
-          <div class="judge-box" id="judgeBox"></div>
-          <p class="note">
-            ※ 前走人気は今回一括確認が未了のため、未確認馬には「前走6番人気以下かつ前走6着以下」の条件を適用していません。<br>
-            ※ 脚質分類は近走内容ベースの機械分類です。<br>
-            ※ 推測で断定せず、未確認情報は未確認のまま扱っています。
+          <h2>RESULT｜順位参考表示</h2>
+          <p class="lead">
+            STEP1通過馬をSTEP2の比較項目で並べた結果です。最終判定は「本命候補あり / 接戦 / 見送り寄り」で表示します。
           </p>
+
+          <div class="result-top">
+            <div class="podium" id="podium"></div>
+            <div class="final-judge" id="judgeBox"></div>
+          </div>
+
+          <div class="footer-note">
+            ※ このページは公開向けの参考表示です。<br>
+            ※ 当日馬場、馬体重、気配、直前のオッズ変動は反映していません。<br>
+            ※ 未確認項目は評価に入れていません。
+          </div>
         </div>
       </section>
     </main>
@@ -523,410 +498,737 @@
   <script>
     (() => {
       const race = {
-        officialName: "第70回 大阪杯（GⅠ）",
-        date: "2026年4月5日（日）",
-        course: "阪神競馬場",
-        condition: "芝2000m",
+        name: "大阪杯",
+        year: 2026,
+        date: "2026年4月5日（日）15:40",
+        track: "阪神競馬場",
+        distance: "芝2000m・右",
+        grade: "GⅠ",
+        surface: "芝",
         fieldSize: 15,
-        confirmed: "枠順・馬番・騎手・前走レース名/着順",
-        unconfirmed: "前走人気の全頭一括確認は未了"
+        confirmedRange: "15頭の出走・枠順・馬番・性齢・騎手・前走レース名 / 前走着順を反映",
+        unconfirmed: [
+          "当日の馬場状態",
+          "最終オッズ",
+          "馬体重",
+          "パドック気配"
+        ]
       };
 
       const rules = [
-        "前走6番人気以下 かつ 前走6着以下 → 消し（前走人気が確認できた馬のみ適用）",
-        "前走10着以下 → 消し",
-        "前走が距離延長 かつ 追込型 → 消し",
-        "7歳以上 かつ 前走6着以下 → 消し",
-        "それ以外は通過"
+        {
+          id: "age7plus",
+          title: "7歳以上は消し",
+          desc: "大阪杯は4歳・5歳中心。7歳以上はかなり苦戦しているため、ここは機械的に切る。",
+          test: horse => horse.age >= 7,
+          reason: "7歳以上"
+        },
+        {
+          id: "age6_no_g1_2000",
+          title: "6歳で2000m以上G1馬券圏内実績なしは消し",
+          desc: "6歳はただでさえ強調しづらい。中距離G1の裏付けがないなら厳しく見る。",
+          test: horse => horse.age === 6 && !horse.hasG12000PlusPlaced,
+          reason: "6歳で2000m以上G1馬券圏内実績なし"
+        },
+        {
+          id: "no_g1_2000",
+          title: "4・5歳でも2000m以上G1馬券圏内実績なしは消し",
+          desc: "大阪杯は能力比較の比重が高く、2000m以上G1での好走歴を重視する。",
+          test: horse => [4,5].includes(horse.age) && !horse.hasG12000PlusPlaced,
+          reason: "2000m以上G1馬券圏内実績なし"
+        },
+        {
+          id: "g3orlower_without_top_class",
+          title: "前走G3以下で、かつ2000m以上G1馬券圏内実績なしは消し",
+          desc: "前走G3以下から来るにはかなり強い勢いが必要。裏付けが足りない馬は切る。",
+          test: horse => horse.lastRaceClassRank >= 3 && !horse.hasG12000PlusPlaced,
+          reason: "前走G3以下かつG1中距離実績不足"
+        }
+      ];
+
+      const comparisonLogic = [
+        {
+          key: "class",
+          label: "格・実績",
+          desc: "G1なので最優先。2000m以上G1の勝ち負け歴を最重視。"
+        },
+        {
+          key: "course",
+          label: "コース距離適性",
+          desc: "阪神内回り2000m向きの持続力・機動力・中距離実績を評価。"
+        },
+        {
+          key: "pace",
+          label: "流れ×脚質",
+          desc: "先行馬がいるため、やや流れても形を崩しにくいタイプを上位。"
+        }
       ];
 
       const horses = [
-        { no:1, draw:1, name:"サンストックトン", age:7, jockey:"高杉吏麒", prevRace:"AJCC", prevDistance:2200, prevFinish:5, prevPopularity:null, style:"追込型", styleNote:"末脚寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:true, negative:true }, fitNote:"2200m近辺の実績止まり" },
-        { no:2, draw:2, name:"マテンロウレオ", age:7, jockey:"横山典弘", prevRace:"AJCC", prevDistance:2200, prevFinish:4, prevPopularity:null, style:"差し中団型", styleNote:"中団差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"2000m〜2200mで重賞好走歴" },
-        { no:3, draw:2, name:"セイウンハーデス", age:7, jockey:"幸英明", prevRace:"中山記念", prevDistance:1800, prevFinish:12, prevPopularity:null, style:"追込型", styleNote:"後方寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:false, negative:true }, fitNote:"近走内容が弱い" },
-        { no:4, draw:3, name:"ダノンデサイル", age:5, jockey:"坂井瑠星", prevRace:"有馬記念", prevDistance:2500, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"中団から長く脚", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"中距離G1級の地力" },
-        { no:5, draw:3, name:"ショウヘイ", age:4, jockey:"川田将雅", prevRace:"AJCC", prevDistance:2200, prevFinish:1, prevPopularity:null, style:"差し中団型", styleNote:"好位〜中団", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"2200m重賞勝ち" },
-        { no:6, draw:4, name:"メイショウタバル", age:5, jockey:"武豊", prevRace:"有馬記念", prevDistance:2500, prevFinish:13, prevPopularity:null, style:"逃げ先行型", styleNote:"主導権候補", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"2000m前後の先行力は高評価" },
-        { no:7, draw:4, name:"エコロディノス", age:4, jockey:"池添謙一", prevRace:"京都記念", prevDistance:2200, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"中団差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"2200mで好走" },
-        { no:8, draw:5, name:"エコロヴァルツ", age:5, jockey:"浜中俊", prevRace:"中山記念", prevDistance:1800, prevFinish:3, prevPopularity:null, style:"差し中団型", styleNote:"好位差し", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"1800m〜2000m型" },
-        { no:9, draw:5, name:"ヨーホーレイク", age:8, jockey:"西村淳也", prevRace:"京都記念", prevDistance:2200, prevFinish:7, prevPopularity:null, style:"追込型", styleNote:"差し後方", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"阪神2000m向きの実績は強い" },
-        { no:10, draw:6, name:"ボルドグフーシュ", age:7, jockey:"松山弘平", prevRace:"アルゼンチン共和国杯", prevDistance:2500, prevFinish:11, prevPopularity:null, style:"追込型", styleNote:"後方一気寄り", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:true }, fitNote:"本来は中長距離寄り" },
-        { no:11, draw:6, name:"デビットバローズ", age:7, jockey:"岩田望来", prevRace:"鳴尾記念", prevDistance:2000, prevFinish:1, prevPopularity:null, style:"逃げ先行型", styleNote:"前で運ぶ", fit:{ sameCourseDistanceTop3:true, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"阪神2000mの前走勝ち" },
-        { no:12, draw:7, name:"レーベンスティール", age:6, jockey:"C.ルメール", prevRace:"中山記念", prevDistance:1800, prevFinish:1, prevPopularity:null, style:"差し中団型", styleNote:"自在性あり", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"1800m〜2000mの中距離適性" },
-        { no:13, draw:7, name:"ファウストラーゼン", age:4, jockey:"岩田康誠", prevRace:"ダイヤモンドS", prevDistance:3400, prevFinish:15, prevPopularity:null, style:"追込型", styleNote:"後方待機", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:false, sameDistanceTop5:false, nearDistanceTop5:false, negative:true }, fitNote:"距離短縮が極端" },
-        { no:14, draw:8, name:"タガノデュード", age:5, jockey:"古川吉洋", prevRace:"小倉大賞典", prevDistance:1800, prevFinish:1, prevPopularity:null, style:"逃げ先行型", styleNote:"前で粘る形", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:false, nearDistanceTop3:true, sameDistanceTop5:false, nearDistanceTop5:true, negative:false }, fitNote:"1800m実績からの延長" },
-        { no:15, draw:8, name:"クロワデュノール", age:4, jockey:"北村友一", prevRace:"ジャパンC", prevDistance:2400, prevFinish:4, prevPopularity:null, style:"差し中団型", styleNote:"中団から差す", fit:{ sameCourseDistanceTop3:false, sameDistanceTop3:true, nearDistanceTop3:true, sameDistanceTop5:true, nearDistanceTop5:true, negative:false }, fitNote:"中距離〜2400mで高水準" }
+        {
+          number: 1,
+          frame: 1,
+          name: "サンストックトン",
+          age: 7,
+          sex: "牡",
+          jockey: "高杉吏麒",
+          trainer: "堀内岳志",
+          lastRace: "中山記念",
+          lastRaceFinish: 9,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 1800,
+          style: "差し",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "×",
+            course: "△",
+            pace: "△"
+          },
+          comment: "年齢面で厳しく、G1中距離の裏付けも足りない。STEP1で消し。"
+        },
+        {
+          number: 2,
+          frame: 2,
+          name: "マテンロウレオ",
+          age: 7,
+          sex: "牡",
+          jockey: "横山典弘",
+          trainer: "昆貢",
+          lastRace: "AJCC",
+          lastRaceFinish: 4,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 2200,
+          style: "差し",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "○",
+            pace: "△"
+          },
+          comment: "中距離実績はあるが、年齢とG1中距離実績不足でSTEP1では残しづらい。"
+        },
+        {
+          number: 3,
+          frame: 2,
+          name: "セイウンハーデス",
+          age: 7,
+          sex: "牡",
+          jockey: "幸英明",
+          trainer: "橋口慎介",
+          lastRace: "中山記念",
+          lastRaceFinish: 12,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 1800,
+          style: "逃げ",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "○",
+            pace: "◎"
+          },
+          comment: "前に行ける強みはあるが、今回は年齢面で消し。"
+        },
+        {
+          number: 4,
+          frame: 3,
+          name: "ダノンデサイル",
+          age: 5,
+          sex: "牡",
+          jockey: "坂井瑠星",
+          trainer: "安田翔伍",
+          lastRace: "有馬記念",
+          lastRaceFinish: 3,
+          lastRaceClass: "G1",
+          lastRaceClassRank: 1,
+          lastRaceDistance: 2500,
+          style: "好位差し",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "◎",
+            course: "○",
+            pace: "○"
+          },
+          comment: "有馬記念3着、ジャパンC3着。G1中距離以上の格は十分。自在性もあり、大崩れしにくいタイプ。"
+        },
+        {
+          number: 5,
+          frame: 3,
+          name: "ショウヘイ",
+          age: 4,
+          sex: "牡",
+          jockey: "川田将雅",
+          trainer: "友道康夫",
+          lastRace: "AJCC",
+          lastRaceFinish: 1,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 2200,
+          style: "先行",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "○",
+            course: "○",
+            pace: "○"
+          },
+          comment: "AJCC勝ちで勢いあり。ダービー3着もあり格の裏付けは十分。極端な形にならなければ上位圏。"
+        },
+        {
+          number: 6,
+          frame: 4,
+          name: "メイショウタバル",
+          age: 5,
+          sex: "牡",
+          jockey: "武豊",
+          trainer: "石橋守",
+          lastRace: "有馬記念",
+          lastRaceFinish: 13,
+          lastRaceClass: "G1",
+          lastRaceClassRank: 1,
+          lastRaceDistance: 2500,
+          style: "逃げ",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "○",
+            course: "◎",
+            pace: "◎"
+          },
+          comment: "宝塚記念勝ちで格は足りる。阪神内回りで自分の形に持ち込めるなら怖い。流れ要員でもあり、展開の鍵。"
+        },
+        {
+          number: 7,
+          frame: 4,
+          name: "エコロディノス",
+          age: 4,
+          sex: "牡",
+          jockey: "池添謙一",
+          trainer: "大久保龍志",
+          lastRace: "京都記念",
+          lastRaceFinish: 3,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 2200,
+          style: "先行",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "○",
+            pace: "○"
+          },
+          comment: "前走内容は悪くないが、大阪杯向きのG1中距離実績不足でSTEP1では切る。"
+        },
+        {
+          number: 8,
+          frame: 5,
+          name: "エコロヴァルツ",
+          age: 5,
+          sex: "牡",
+          jockey: "浜中俊",
+          trainer: "牧浦充徳",
+          lastRace: "中山記念",
+          lastRaceFinish: 3,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 1800,
+          style: "好位",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "○",
+            pace: "○"
+          },
+          comment: "前年大阪杯4着はあるが、2000m以上G1での馬券圏実績までは届いていない。STEP1で消し。"
+        },
+        {
+          number: 9,
+          frame: 5,
+          name: "ヨーホーレイク",
+          age: 8,
+          sex: "牡",
+          jockey: "西村淳也",
+          trainer: "友道康夫",
+          lastRace: "京都記念",
+          lastRaceFinish: 7,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 2200,
+          style: "差し",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "○",
+            course: "○",
+            pace: "△"
+          },
+          comment: "実績はあるが、8歳はこのレースだとかなり厳しい。STEP1で消し。"
+        },
+        {
+          number: 10,
+          frame: 6,
+          name: "ボルドグフーシュ",
+          age: 7,
+          sex: "牡",
+          jockey: "松山弘平",
+          trainer: "宮本博",
+          lastRace: "アルゼンチン共和国杯",
+          lastRaceFinish: 11,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 2500,
+          style: "差し",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "○",
+            course: "△",
+            pace: "△"
+          },
+          comment: "長距離寄り実績はあるが、7歳でSTEP1では消し。"
+        },
+        {
+          number: 11,
+          frame: 6,
+          name: "デビットバローズ",
+          age: 7,
+          sex: "セ",
+          jockey: "岩田望来",
+          trainer: "上村洋行",
+          lastRace: "鳴尾記念",
+          lastRaceFinish: 1,
+          lastRaceClass: "G3",
+          lastRaceClassRank: 3,
+          lastRaceDistance: 1800,
+          style: "好位",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "△",
+            pace: "○"
+          },
+          comment: "勢いはあるが、年齢と格の面でSTEP1では通しづらい。"
+        },
+        {
+          number: 12,
+          frame: 7,
+          name: "レーベンスティール",
+          age: 6,
+          sex: "牡",
+          jockey: "C.ルメール",
+          trainer: "田中博康",
+          lastRace: "中山記念",
+          lastRaceFinish: 1,
+          lastRaceClass: "G2",
+          lastRaceClassRank: 2,
+          lastRaceDistance: 1800,
+          style: "好位差し",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "○",
+            course: "○",
+            pace: "○"
+          },
+          comment: "中距離重賞実績は厚いが、6歳でG1中距離の馬券圏実績なし。今回はSTEP1で切る。"
+        },
+        {
+          number: 13,
+          frame: 7,
+          name: "ファウストラーゼン",
+          age: 4,
+          sex: "牡",
+          jockey: "岩田康誠",
+          trainer: "須貝尚介",
+          lastRace: "ダイヤモンドS",
+          lastRaceFinish: 15,
+          lastRaceClass: "G3",
+          lastRaceClassRank: 3,
+          lastRaceDistance: 3400,
+          style: "追い込み",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "△",
+            course: "△",
+            pace: "×"
+          },
+          comment: "ホープフルS3着があり、G1中距離の裏付けでSTEP1は通過。ただし現状の流れではSTEP2評価はかなり下。"
+        },
+        {
+          number: 14,
+          frame: 8,
+          name: "タガノデュード",
+          age: 5,
+          sex: "牡",
+          jockey: "古川吉洋",
+          trainer: "宮徹",
+          lastRace: "小倉大賞典",
+          lastRaceFinish: 1,
+          lastRaceClass: "G3",
+          lastRaceClassRank: 3,
+          lastRaceDistance: 1800,
+          style: "差し",
+          hasG12000PlusPlaced: false,
+          ratings: {
+            class: "△",
+            course: "○",
+            pace: "△"
+          },
+          comment: "2連勝は魅力だが、大阪杯の基準ではG1中距離の裏付け不足。STEP1で消し。"
+        },
+        {
+          number: 15,
+          frame: 8,
+          name: "クロワデュノール",
+          age: 4,
+          sex: "牡",
+          jockey: "北村友一",
+          trainer: "斉藤崇史",
+          lastRace: "ジャパンC",
+          lastRaceFinish: 4,
+          lastRaceClass: "G1",
+          lastRaceClassRank: 1,
+          lastRaceDistance: 2400,
+          style: "好位差し",
+          hasG12000PlusPlaced: true,
+          ratings: {
+            class: "◎",
+            course: "◎",
+            pace: "○"
+          },
+          comment: "東京優駿1着、皐月賞2着。格・距離実績とも最上位。大外枠はあるが、能力比較なら最上位評価。"
+        }
       ];
 
-      const signScoreMap = { "◎":2, "○":1, "△":0, "×":-1 };
-      const targetDistance = 2000;
+      const pointsMap = { "◎": 2, "○": 1, "△": 0, "×": -1 };
 
-      const elRaceMeta = document.getElementById("raceMeta");
-      const elRulesList = document.getElementById("rulesList");
-      const elStep1Stats = document.getElementById("step1Stats");
-      const elStep1Cards = document.getElementById("step1Cards");
-      const elPaceBox = document.getElementById("paceBox");
-      const elStep2Cards = document.getElementById("step2Cards");
-      const elResultPodium = document.getElementById("resultPodium");
-      const elJudgeBox = document.getElementById("judgeBox");
-
-      function isDistanceExtension(horse){
-        return horse.prevDistance < targetDistance;
-      }
-
-      function evaluateStep1(horse){
-        const reasons = [];
-        const info = [];
-
-        const prevPopularityKnown = typeof horse.prevPopularity === "number";
-        if (!prevPopularityKnown) {
-          info.push("前走人気は未確認");
-        }
-
-        if (prevPopularityKnown && horse.prevPopularity >= 6 && horse.prevFinish >= 6) {
-          reasons.push("前走6番人気以下かつ前走6着以下");
-        }
-
-        if (horse.prevFinish >= 10) {
-          reasons.push("前走10着以下");
-        }
-
-        if (isDistanceExtension(horse) && horse.style === "追込型") {
-          reasons.push("距離延長かつ追込型");
-        }
-
-        if (horse.age >= 7 && horse.prevFinish >= 6) {
-          reasons.push("7歳以上かつ前走6着以下");
-        }
-
+      function evaluateStep1(horse) {
+        const hitRules = rules.filter(rule => rule.test(horse));
+        const reasons = hitRules.map(rule => rule.reason);
         return {
-          pass: reasons.length === 0,
-          reasons,
-          info
+          ...horse,
+          step1Pass: reasons.length === 0,
+          step1Reasons: reasons.length ? reasons : ["通過"]
         };
       }
 
-      function courseDistanceSign(horse){
-        const f = horse.fit || {};
-        if (f.sameCourseDistanceTop3) return "◎";
-        if (f.sameDistanceTop3 || (f.nearDistanceTop3 && !f.negative)) return "○";
-        if (f.sameDistanceTop5 || f.nearDistanceTop5) return "△";
-        return "×";
+      function getStep2Score(horse) {
+        return comparisonLogic.reduce((sum, item) => sum + pointsMap[horse.ratings[item.key]], 0);
       }
 
-      function computePace(passers){
-        const frontCount = passers.filter(h => h.style === "逃げ先行型").length;
-        if (frontCount <= 2) {
-          return { key:"slow", label:"スロー寄り", desc:"先行型が少なく、前で運べる馬にやや追い風の想定。" };
-        }
-        if (frontCount >= 4) {
-          return { key:"high", label:"ハイ寄り", desc:"先行型が多く、差し・追込にやや向く想定。" };
-        }
-        return { key:"middle", label:"ミドル", desc:"先行型は適度で、極端な流れになりにくい想定。" };
+      function getTieVector(horse) {
+        return comparisonLogic.map(item => pointsMap[horse.ratings[item.key]]);
       }
 
-      function flowStyleSign(style, paceKey){
-        if (paceKey === "slow") {
-          if (style === "逃げ先行型") return "◎";
-          if (style === "差し中団型") return "○";
-          return "△";
+      function compareHorses(a, b) {
+        const scoreDiff = getStep2Score(b) - getStep2Score(a);
+        if (scoreDiff !== 0) return scoreDiff;
+
+        const av = getTieVector(a);
+        const bv = getTieVector(b);
+        for (let i = 0; i < av.length; i += 1) {
+          if (bv[i] !== av[i]) return bv[i] - av[i];
         }
-        if (paceKey === "high") {
-          if (style === "追込型") return "◎";
-          if (style === "差し中団型") return "○";
-          return "△";
-        }
-        if (style === "差し中団型") return "◎";
-        if (style === "逃げ先行型") return "○";
-        return "○";
+        return a.number - b.number;
       }
 
-      function compareRank(a, b){
-        if (b.total !== a.total) return b.total - a.total;
-        if (b.courseScore !== a.courseScore) return b.courseScore - a.courseScore;
-        if (b.flowScore !== a.flowScore) return b.flowScore - a.flowScore;
-        return a.no - b.no;
-      }
+      const evaluated = horses.map(evaluateStep1);
+      const survivors = evaluated.filter(h => h.step1Pass);
+      const ranked = [...survivors]
+        .map(h => ({ ...h, total: getStep2Score(h) }))
+        .sort(compareHorses)
+        .map((h, index, arr) => {
+          let rankLabel = `${index + 1}位`;
+          if (index > 0) {
+            const prev = arr[index - 1];
+            if (
+              h.total === prev.total &&
+              JSON.stringify(getTieVector(h)) === JSON.stringify(getTieVector(prev))
+            ) {
+              rankLabel = "接戦";
+            }
+          }
+          return { ...h, rankLabel };
+        });
 
-      function finalJudge(ranked){
-        if (ranked.length === 0) {
-          return { title:"見送り寄り", body:"STEP1通過馬がいないため、機械比較の対象がありません。" };
+      function getFinalJudge(list) {
+        if (list.length === 0) {
+          return {
+            title: "見送り寄り",
+            desc: "STEP1通過馬がいないため、無理に本命を作らない構成です。"
+          };
         }
-        if (ranked.length === 1) {
-          return { title:"本命候補あり", body:"通過馬が1頭だけなので、機械判定上は単独候補です。" };
+        if (list.length === 1) {
+          return {
+            title: "本命候補あり",
+            desc: "STEP1を通過したのが1頭だけ。データ上はこの馬が最有力です。"
+          };
         }
+        const first = list[0];
+        const second = list[1];
+        const third = list[2];
 
-        const first = ranked[0];
-        const second = ranked[1];
-        const third = ranked[2];
-
-        if (first.total >= second.total + 2) {
-          return { title:"本命候補あり", body:"1位が点数面で一歩抜けています。" };
-        }
-
-        if (first.total === second.total &&
-            first.courseScore === second.courseScore &&
-            first.flowScore === second.flowScore) {
-          return { title:"接戦", body:"1位と2位が完全同点です。" };
+        if (first.total === second.total) {
+          return {
+            title: "接戦",
+            desc: "1位と2位が同点。比較項目でも決め切れず、上位は横並びです。"
+          };
         }
 
         if (third && first.total - third.total <= 1) {
-          return { title:"見送り寄り", body:"上位3頭がかなり密集しています。" };
+          return {
+            title: "見送り寄り",
+            desc: "上位が密集。1頭を強く押し切るには材料が足りません。"
+          };
         }
 
-        if (first.total === second.total) {
-          return { title:"接戦", body:"1位と2位が同点で、決め手に欠けます。" };
-        }
-
-        return { title:"本命候補あり", body:"1位はいるものの、2位以下との差は大きすぎません。" };
+        return {
+          title: "本命候補あり",
+          desc: "1位が単独気味。比較項目の並びでも頭ひとつ抜けた形です。"
+        };
       }
 
-      function badgeClass(sign){
-        if (sign === "◎") return "s-g";
-        if (sign === "○") return "s-o";
-        if (sign === "△") return "s-d";
-        return "s-x";
-      }
+      const finalJudge = getFinalJudge(ranked);
 
-      function renderMeta(){
+      const metaGrid = document.getElementById("metaGrid");
+      const raceInfoList = document.getElementById("raceInfoList");
+      const ruleList = document.getElementById("ruleList");
+      const step1Summary = document.getElementById("step1Summary");
+      const step1HorseList = document.getElementById("step1HorseList");
+      const step2Lead = document.getElementById("step2Lead");
+      const logicList = document.getElementById("logicList");
+      const paceText = document.getElementById("paceText");
+      const comparisonList = document.getElementById("comparisonList");
+      const podium = document.getElementById("podium");
+      const judgeBox = document.getElementById("judgeBox");
+
+      function createMeta() {
         const items = [
-          { k:"レース名", v:race.officialName },
-          { k:"開催日", v:race.date },
-          { k:"競馬場", v:race.course },
-          { k:"条件", v:race.condition },
-          { k:"頭数", v:`${race.fieldSize}頭` },
-          { k:"確認済み", v:race.confirmed },
-          { k:"未確認", v:race.unconfirmed },
-          { k:"用途", v:"大阪杯専用の消去法" }
+          { label: "開催", value: `${race.date}` },
+          { label: "競馬場", value: race.track },
+          { label: "条件", value: `${race.grade} / ${race.distance}` },
+          { label: "出走頭数", value: `${race.fieldSize}頭` }
         ];
-
-        elRaceMeta.innerHTML = items.map(item => `
-          <div class="mini">
-            <span class="k">${item.k}</span>
-            <span class="v">${item.v}</span>
+        metaGrid.innerHTML = items.map(item => `
+          <div class="meta-card">
+            <div class="meta-label">${item.label}</div>
+            <div class="meta-value">${item.value}</div>
           </div>
         `).join("");
       }
 
-      function renderRules(){
-        elRulesList.innerHTML = rules.map(rule => `<div class="rule">・${rule}</div>`).join("");
-      }
-
-      function renderStep1(evaluated){
-        const total = evaluated.length;
-        const passed = evaluated.filter(h => h.step1.pass).length;
-        const out = total - passed;
-
-        const stats = [
-          { label:"出走頭数", value:total },
-          { label:"消去頭数", value:out },
-          { label:"通過頭数", value:passed }
+      function createRaceInfo() {
+        const items = [
+          {
+            title: "確認できた情報",
+            desc: `${race.confirmedRange}`
+          },
+          {
+            title: "未確認項目",
+            desc: race.unconfirmed.join(" / ")
+          }
         ];
-
-        elStep1Stats.innerHTML = stats.map(s => `
-          <div class="stat">
-            <span class="num">${s.value}</span>
-            <span class="muted">${s.label}</span>
+        raceInfoList.innerHTML = items.map(item => `
+          <div class="info-item">
+            <div class="info-title">${item.title}</div>
+            <div class="info-desc">${item.desc}</div>
           </div>
         `).join("");
+      }
 
-        elStep1Cards.innerHTML = evaluated.map(h => {
-          const reasons = h.step1.pass ? ["強い消し条件に非該当"] : h.step1.reasons;
-          const info = h.step1.info || [];
+      function createRules() {
+        ruleList.innerHTML = rules.map((rule, index) => `
+          <div class="rule-item">
+            <div class="rule-title">ルール${index + 1}｜${rule.title}</div>
+            <div class="rule-desc">${rule.desc}</div>
+          </div>
+        `).join("");
+      }
+
+      function createStep1Summary() {
+        const cutCount = evaluated.filter(h => !h.step1Pass).length;
+        const passCount = survivors.length;
+        step1Summary.innerHTML = `
+          <div class="summary-card">
+            <div class="summary-num">${race.fieldSize}</div>
+            <div class="summary-label">出走頭数</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-num">${cutCount}</div>
+            <div class="summary-label">消去頭数</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-num">${passCount}</div>
+            <div class="summary-label">通過頭数</div>
+          </div>
+        `;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function createStep1Cards() {
+        step1HorseList.innerHTML = evaluated.map(horse => {
+          const statusClass = horse.step1Pass ? "status-pass" : "status-cut";
+          const statusText = horse.step1Pass ? "通過" : "消し";
+          const reasonsHtml = horse.step1Reasons.map(reason => `
+            <div class="reason-tag ${horse.step1Pass ? "reason-ok" : ""}">
+              ${escapeHtml(reason)}
+            </div>
+          `).join("");
+
           return `
             <article class="horse-card">
               <div class="horse-top">
                 <div class="horse-left">
+                  <div class="number-chip">${horse.number}</div>
                   <div>
-                    <span class="horse-no">${h.no}</span>
-                    <span class="horse-name">${h.name}</span>
+                    <h3 class="horse-name">${escapeHtml(horse.name)}</h3>
+                    <div class="horse-sub">${horse.sex}${horse.age} / 騎手 ${escapeHtml(horse.jockey)}</div>
                   </div>
-                  <div class="horse-meta">${h.age}歳 / 騎手：${h.jockey}</div>
                 </div>
-                <span class="badge ${h.step1.pass ? "pass" : "out"}">${h.step1.pass ? "通過" : "消し"}</span>
+                <div class="status-badge ${statusClass}">${statusText}</div>
               </div>
 
-              <div class="row">
-                <div class="cell">
-                  <span class="label">前走レース</span>
-                  <span class="value">${h.prevRace}</span>
+              <div class="horse-grid">
+                <div class="mini">
+                  <div class="k">前走レース</div>
+                  <div class="v">${escapeHtml(horse.lastRace)}</div>
                 </div>
-                <div class="cell">
-                  <span class="label">前走着順</span>
-                  <span class="value">${h.prevFinish}着</span>
+                <div class="mini">
+                  <div class="k">前走着順</div>
+                  <div class="v">${horse.lastRaceFinish}着</div>
                 </div>
-                <div class="cell">
-                  <span class="label">前走距離</span>
-                  <span class="value">${h.prevDistance}m</span>
+                <div class="mini">
+                  <div class="k">年齢</div>
+                  <div class="v">${horse.age}歳</div>
                 </div>
-                <div class="cell">
-                  <span class="label">脚質分類</span>
-                  <span class="value">${h.style}</span>
+                <div class="mini">
+                  <div class="k">2000m以上G1実績</div>
+                  <div class="v">${horse.hasG12000PlusPlaced ? "あり" : "なし"}</div>
                 </div>
               </div>
 
-              <div class="chips">
-                ${reasons.map(r => `<span class="chip ${h.step1.pass ? "pass" : "out"}">${r}</span>`).join("")}
-                ${info.map(i => `<span class="chip">${i}</span>`).join("")}
-              </div>
+              <div class="reason-wrap">${reasonsHtml}</div>
             </article>
           `;
         }).join("");
       }
 
-      function renderStep2(ranked, pace){
-        elPaceBox.innerHTML = `
-          <div class="pace-main">想定ペース：${pace.label}</div>
-          <div class="muted">${pace.desc}</div>
-        `;
+      function createStep2Header() {
+        step2Lead.textContent =
+          "今回はG1なので「格・実績」を最優先にし、阪神芝2000mの適性と、逃げ・先行馬がいる前提の流れ対応を加えて比較します。";
+        paceText.textContent =
+          "想定ペース：やや速め。メイショウタバル、セイウンハーデスなど前へ行く形が見込まれ、淡々とした超スローには寄りにくい想定です。";
+      }
 
-        if (!ranked.length) {
-          elStep2Cards.innerHTML = `
-            <div class="rank-card">
-              <div class="muted">STEP1通過馬がいないため、比較対象はありません。</div>
-            </div>
-          `;
-          return;
-        }
+      function createLogicList() {
+        logicList.innerHTML = comparisonLogic.map((item, index) => `
+          <div class="info-item">
+            <div class="info-title">${index + 1}. ${item.label}</div>
+            <div class="info-desc">${item.desc}</div>
+          </div>
+        `).join("");
+      }
 
-        elStep2Cards.innerHTML = ranked.map(h => `
-          <article class="rank-card">
-            <div class="rank-head">
-              <div>
-                <div class="rank-num">${h.rank}位</div>
-                <div class="horse-name"><span class="horse-no">${h.no}</span>${h.name}</div>
-                <div class="horse-meta">${h.age}歳 / 騎手：${h.jockey}</div>
-              </div>
-              <div class="score">${h.total}点</div>
-            </div>
+      function markClass(mark) {
+        if (mark === "◎") return "g";
+        if (mark === "○") return "o";
+        if (mark === "△") return "d";
+        return "x";
+      }
 
-            <div class="row">
-              <div class="cell">
-                <span class="label">コース距離適性</span>
-                <span class="value sign-wrap">
-                  <span class="sign ${badgeClass(h.courseSign)}">${h.courseSign}</span>
-                  ${h.fitNote}
-                </span>
+      function createComparisonCards() {
+        comparisonList.innerHTML = ranked.map((horse, index) => `
+          <article class="comparison-card">
+            <div class="comparison-head">
+              <div class="horse-left">
+                <div class="number-chip">${horse.number}</div>
+                <div>
+                  <h3 class="horse-name">${index + 1}位候補｜${escapeHtml(horse.name)}</h3>
+                  <div class="horse-sub">${horse.sex}${horse.age} / 騎手 ${escapeHtml(horse.jockey)}</div>
+                </div>
               </div>
-              <div class="cell">
-                <span class="label">流れ×脚質</span>
-                <span class="value sign-wrap">
-                  <span class="sign ${badgeClass(h.flowSign)}">${h.flowSign}</span>
-                  ${h.style}
-                </span>
-              </div>
-              <div class="cell">
-                <span class="label">脚質分類</span>
-                <span class="value">${h.style}</span>
-              </div>
-              <div class="cell">
-                <span class="label">順位</span>
-                <span class="value">${h.rank}位</span>
-              </div>
+              <div class="score-badge">合計 ${horse.total}点</div>
             </div>
 
-            <div class="chips">
-              <span class="chip">コース距離 ${h.courseScore}点</span>
-              <span class="chip">流れ×脚質 ${h.flowScore}点</span>
-              <span class="chip">${h.styleNote}</span>
+            <div class="rating-grid">
+              ${comparisonLogic.map(item => `
+                <div class="rating-box">
+                  <div class="rating-label">${item.label}</div>
+                  <div class="mark ${markClass(horse.ratings[item.key])}">${horse.ratings[item.key]}</div>
+                  <div class="rating-point">${pointsMap[horse.ratings[item.key]]}点</div>
+                </div>
+              `).join("")}
             </div>
+
+            <div class="comment">${escapeHtml(horse.comment)}</div>
           </article>
         `).join("");
       }
 
-      function renderResult(ranked, judge){
+      function createResult() {
         const top3 = ranked.slice(0, 3);
-        const labels = ["1位候補", "2位候補", "3位候補"];
+        const rankNames = ["1位候補", "2位候補", "3位候補"];
 
-        elResultPodium.innerHTML = labels.map((label, idx) => {
-          const h = top3[idx];
-          if (!h) {
-            return `
-              <div class="podium-card ${idx === 0 ? "first" : ""}">
-                <div class="podium-title">${label}</div>
-                <div class="podium-name">該当なし</div>
-                <div class="podium-sub">通過馬不足</div>
-              </div>
-            `;
-          }
-          return `
-            <div class="podium-card ${idx === 0 ? "first" : ""}">
-              <div class="podium-title">${label}</div>
-              <div class="podium-name">${h.no} ${h.name}</div>
-              <div class="podium-sub">
-                合計 ${h.total}点 / コース距離 ${h.courseSign} / 流れ×脚質 ${h.flowSign}
-              </div>
+        podium.innerHTML = top3.map((horse, index) => `
+          <div class="podium-card rank${index + 1}">
+            <div class="podium-rank">${rankNames[index]}</div>
+            <div class="podium-name">${horse.number}番 ${escapeHtml(horse.name)}</div>
+            <div class="podium-meta">
+              合計 ${horse.total}点 / ${horse.sex}${horse.age} / 騎手 ${escapeHtml(horse.jockey)}<br>
+              ${escapeHtml(horse.comment)}
             </div>
-          `;
-        }).join("");
+          </div>
+        `).join("");
 
-        elJudgeBox.innerHTML = `
-          <div class="judge-main">最終判定：${judge.title}</div>
-          <div class="muted">${judge.body}</div>
+        judgeBox.innerHTML = `
+          <div class="judge-label">FINAL JUDGE</div>
+          <div class="judge-value">${finalJudge.title}</div>
+          <div class="judge-desc">${finalJudge.desc}</div>
         `;
       }
 
-      function setupTabs(){
-        const buttons = Array.from(document.querySelectorAll(".tab-btn"));
+      function setupNavigation() {
+        const buttons = Array.from(document.querySelectorAll(".nav-btn"));
         const screens = {
           step1: document.getElementById("screen-step1"),
           step2: document.getElementById("screen-step2"),
           result: document.getElementById("screen-result")
         };
 
-        buttons.forEach(btn => {
-          btn.addEventListener("click", () => {
-            buttons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            Object.values(screens).forEach(screen => screen.classList.remove("active"));
-            screens[btn.dataset.screen].classList.add("active");
-
-            window.scrollTo({ top:0, behavior:"smooth" });
+        function activate(screenKey) {
+          buttons.forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.screen === screenKey);
           });
+          Object.entries(screens).forEach(([key, el]) => {
+            el.classList.toggle("active", key === screenKey);
+          });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        buttons.forEach(btn => {
+          btn.addEventListener("click", () => activate(btn.dataset.screen));
         });
       }
 
-      function build(){
-        renderMeta();
-        renderRules();
-
-        const evaluated = horses.map(h => ({
-          ...h,
-          step1: evaluateStep1(h)
-        }));
-
-        renderStep1(evaluated);
-
-        const passers = evaluated.filter(h => h.step1.pass);
-        const pace = computePace(passers);
-
-        const ranked = passers
-          .map(h => {
-            const courseSign = courseDistanceSign(h);
-            const flowSign = flowStyleSign(h.style, pace.key);
-            const courseScore = signScoreMap[courseSign];
-            const flowScore = signScoreMap[flowSign];
-            return {
-              ...h,
-              courseSign,
-              flowSign,
-              courseScore,
-              flowScore,
-              total: courseScore + flowScore
-            };
-          })
-          .sort(compareRank)
-          .map((h, idx) => ({ ...h, rank: idx + 1 }));
-
-        const judge = finalJudge(ranked);
-
-        renderStep2(ranked, pace);
-        renderResult(ranked, judge);
+      function init() {
+        createMeta();
+        createRaceInfo();
+        createRules();
+        createStep1Summary();
+        createStep1Cards();
+        createStep2Header();
+        createLogicList();
+        createComparisonCards();
+        createResult();
+        setupNavigation();
       }
 
-      setupTabs();
-      build();
+      init();
     })();
   </script>
 </body>
